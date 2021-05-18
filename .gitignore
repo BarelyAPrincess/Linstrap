@@ -1,0 +1,7 @@
+# Temporary Files
+build-workdir/**
+
+# Gradle Project Files
+.gradle
+gradle-app.setting
+!gradle-wrapper.jar
