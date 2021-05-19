@@ -1,0 +1,19 @@
+#!/bin/bash
+
+CHROOT="${PWD}/gradle-workdir/chroot"
+
+function drop
+{
+    echo "$1"
+    exit 1
+}
+
+function check_env
+{
+    printf "CHECKING ENVIRONMENT..."
+
+    [ `uname -m` != "x86_64" ] && drop "Did not detect X86_64 ARCH. Script may fail."
+    [ `whoami` != "root" ] && drop "Only root can run this script."
+
+    echo "GOOD!"
+}

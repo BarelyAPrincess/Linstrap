@@ -1,5 +1,6 @@
 # Temporary Files
-build-workdir/**
+gradle-workdir/**
+bin/debootstrap
 
 # Gradle Project Files
 .gradle
