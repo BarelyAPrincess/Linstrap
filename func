@@ -1,7 +1,33 @@
+# This software may be modified and distributed under the terms
+# of the MIT license.  See the LICENSE file for details.
+#
+# Copyright (c) 2021 Amelia Sara Greene <barelyaprincess@gmail.com>
+# Copyright (c) 2021 Penoaks Publishing LLC <development@penoaks.com>
+#
 #!/bin/bash
 
 [ $INCLUDE_ONCE_FUNC ] && exit 1
 INCLUDE_ONCE_FUNC=1
+
+cat "/proc/$$/status"
+
+# TODO Add function that self catches
+function is_self() {
+  "${0##*/}" == "func"
+}
+
+function is_bash() {
+  "${0##*/}" == "bash"
+}
+
+return
+
+if [ is_bash || "${0##*/}" == "func" ]; then
+  echo "ERROR: Do not directly run this script!"
+
+fi
+
+# [ "${0##*/}" == "func" ] && echo "ERROR: Do not directly run this script!" && exit 1
 
 function last_arg() {
   for i; do :; done
@@ -37,7 +63,7 @@ function echo() {
     if [ "$(LC_ALL=C type -t parse_color)" == "function" ]; then
       VAR="$(parse_color "$VAR")"
     else
-      VAR="${VAR//&[0-9A-Za-z]/}"
+      VAR="${VAR//[&@][0-9A-Za-z]/}"
     fi
 
     builtin echo $OPTIONS "$VAR"
