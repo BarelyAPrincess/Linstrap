@@ -2,8 +2,9 @@
 /cache/**
 /bin/debootstrap
 /gradlew
+.vscode
 
 # Gradle Project Files
 .gradle
 gradle-app.setting
-!gradle-wrapper.jar
+!gradle.jar

@@ -16,27 +16,66 @@
 ##  Linstrap JVM Bootstrap script for UN*X
 ##############################################################################
 
-CODE_DEF="\e[97m"
-CODE_BLINK="\e[5m"
-CODE_ERROR="\e[1;41;97m"
-CODE_RESET="\e[39;0m"
+if [ "$0" == "*bash" ]; then
+    /usr/bin/env -S bash
+    return $?
+fi
+
+yes() {
+    [ $1 ] && eval "$1=0" || echo -n 0
+}
+
+no() {
+    [ $1 ] && eval "$1=1" || echo -n 1
+}
+
+sterilize_bool() {
+    eval "CV=\${$1}"
+    case $CV in
+        "1"|"yes"|"true")
+            EV=$(yes)
+            ;;
+        "0"|"no"|"false"|"")
+            EV=$(no)
+            ;;
+        *)
+            # Is there a way to prevent this from executing malicious code?
+            eval "$CV &>/dev/null"
+            EV="$?"
+            ;;
+    esac
+
+    [ $1 ] && eval "$1=\"$EV\"" || return $EV
+}
+
+sterilize_bool USE_COLOR
+
+case "$TERM" in
+    xterm-color|*-256color) USE_COLOR=$(yes);;
+esac
+
+# Check if setting the color causes an error
+if [ $USE_COLOR == "0" ] && ! tput setaf 1 >&/dev/null; then
+    USE_COLOR=$(no)
+fi
+
+if [ $USE_COLOR == "0" ]; then
+    [ $CODE_DEF ] || CODE_DEF="\e[96m"
+    [ $CODE_GOOD ] || CODE_GOOD="\e[1;36m"
+    [ $CODE_BLINK ] || CODE_BLINK="\e[5m"
+    [ $CODE_ERROR ] || CODE_ERROR="\e[1;41;97m"
+    [ $CODE_RESET ] || CODE_RESET="\e[39;0m"
+fi
 
 msg() {
     echo -e "$CODE_DEF $1 $CODE_RESET"
 }
 
 alignCenter() {
-    declare -i NUM=${#1}
-    declare -i ODD=$NUM%2
-    declare -i N1=$NUM/2
-    declare -i N2=${2}/2
-
-    declare -i NUM=$N2-$N1
-    
-    printf '%*s' $NUM
-    echo -en "$1"
-    [ $ODD == "1" ] && declare -i NUM=$NUM-1
-    printf '%*s' $NUM
+    LM=$((${2}/2-${#1}/2))
+    RM=$LM
+    [ $((${#1}%2)) == "1" ] && RM=$((RM-1))
+    echo -en "`printf '%*s' $LM`$1`printf '%*s' $RM`"
 }
 
 error() {
@@ -98,10 +137,10 @@ msg " ░ ░ ▒  ░ ▒ ░░ ░░   ░ ▒░░ ░▒  ░ ░    ░ 
 msg "   ░ ░    ▒ ░   ░   ░ ░ ░  ░  ░    ░        ░░   ░   ░   ▒   ░░        "
 msg "     ░  ░ ░           ░       ░              ░           ░  ░          "
 msg "                                                                       "
-msg " ╔═══════════════════════════════════════════════════════════════════╗ "
-msg " ║ Welcome to the Linux System Bootstraper Utility v1.0              ║ "
-msg " ║ Created by Amelia S. Greene (BarelyAPrincess)                     ║ "
-msg " ╚═══════════════════════════════════════════════════════════════════╝ "
+msg " ╔════════════════════════════════════════════════════════════════════╗ "
+msg " ║ $CODE_GOOD$(alignCenter "Welcome to the Linux System Bootstraper Utility v1.0" "66";)$CODE_RESET ║"
+msg " ║ $CODE_GOOD$(alignCenter "Created by Amelia S. Greene (BarelyAPrincess)" "66";)$CODE_RESET ║"
+msg " ╚════════════════════════════════════════════════════════════════════╝ "
 
 # Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.
 DEFAULT_JVM_OPTS=""
