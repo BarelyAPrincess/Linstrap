@@ -9,8 +9,6 @@
 [ $INCLUDE_ONCE_FUNC ] && exit 1
 INCLUDE_ONCE_FUNC=1
 
-cat "/proc/$$/status"
-
 # TODO Add function that self catches
 function is_self() {
   "${0##*/}" == "func"
@@ -19,8 +17,6 @@ function is_self() {
 function is_bash() {
   "${0##*/}" == "bash"
 }
-
-return
 
 if [ is_bash || "${0##*/}" == "func" ]; then
   echo "ERROR: Do not directly run this script!"
