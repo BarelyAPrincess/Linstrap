@@ -29,6 +29,11 @@ no() {
     [ $1 ] && eval "$1=1" || echo -n 1
 }
 
+is() {
+    [ $1 ] && eval "CV=\${$1}" || CV=$1
+    [ "$CV" == "0" ] || return 1
+}
+
 sterilize_bool() {
     eval "CV=\${$1}"
     case $CV in
