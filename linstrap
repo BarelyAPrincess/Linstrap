@@ -262,7 +262,12 @@ save () {
 APP_ARGS=$(save "$@")
 
 # Collect all arguments for the java command, following the shell quoting and substitution rules
-eval set -- $DEFAULT_JVM_OPTS $JAVA_OPTS $GRADLE_OPTS "\"-Dorg.gradle.appname=$APP_BASE_NAME\"" -classpath "\"$CLASSPATH\"" org.gradle.wrapper.GradleWrapperMain --project-dir "\"$LINSTRAP_HOME\"" --settings-file "\"$LINSTRAP_HOME/scripts/settings.gradle\"" --build-file "\"$LINSTRAP_HOME/scripts/linstrap.gradle\"" "$APP_ARGS"
+eval set -- $DEFAULT_JVM_OPTS $JAVA_OPTS $GRADLE_OPTS "\"-Dorg.gradle.appname=linstrap\"" -classpath "\"$CLASSPATH\"" org.gradle.wrapper.GradleWrapperMain \
+    --gradle-user-home "\"$LINSTRAP_HOME/cache\"" \
+    --project-cache-dir "\"$LINSTRAP_HOME/cache\"" \
+    --settings-file "\"$LINSTRAP_HOME/data/settings.gradle\"" \
+    --project-dir "\"$LINSTRAP_HOME/data\"" \
+    "$APP_ARGS"
 
 # by default we should be in the correct project dir, but when run from Finder on Mac, the cwd is wrong
 if [ "$(uname)" = "Darwin" ] && [ "$HOME" = "$PWD" ]; then

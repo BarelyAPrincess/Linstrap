@@ -2,9 +2,13 @@
 /cache/**
 /bin/debootstrap
 /gradlew
+/android-kernel
 .vscode
 
 # Gradle Project Files
 .gradle
 gradle-app.setting
 !gradle.jar
+
+# Ignore Gradle build output directory
+build
