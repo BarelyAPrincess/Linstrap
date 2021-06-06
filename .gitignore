@@ -2,7 +2,8 @@
 /cache/**
 /bin/debootstrap
 /gradlew
-/android-kernel
+/workdir
+/build
 .vscode
 
 # Gradle Project Files

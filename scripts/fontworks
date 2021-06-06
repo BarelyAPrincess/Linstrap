@@ -4,13 +4,7 @@
 # Copyright (c) 2021 Amelia Sara Greene <barelyaprincess@gmail.com>
 # Copyright (c) 2021 Penoaks Publishing LLC <development@penoaks.com>
 #
-#!/bin/bash
-
-[ $INCLUDE_ONCE_COLORS ] && exit 1
-INCLUDE_ONCE_COLORS=1
-
-[ "${0##*/}" == "fontworks" ] && error "ERROR: Do not directly run this script!"
-[ $INCLUDE_ONCE_FUNC ] || error "ERROR: The func module must be first declared!"
+#!/bin/bash -e
 
 ## Cursor Codes ##
 
