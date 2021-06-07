@@ -18,7 +18,7 @@
 ##############################################################################
 
 ## Prevent script from being source'd
-if [ "$0" == "*bash" || "$0" == "*sh" ]; then
+if [ "$0" == "*bash" -o "$0" == "*sh" ]; then
     /bin/bash `realpath $0`
     return $?
 fi
@@ -27,10 +27,19 @@ fi
 
 ## Specifies what function will be executed
 FUNCTION=${1:-launch}
+shift
 
-# Attempt to set LINSTRAP_HOME
-if [ $LINSTRAP_HOME ]; then
-    VERIFY_MSG="The LINSTRAP_DIR variable points to an invalid target:\n\"`realpath $LINSTRAP_HOME`\"\nPlease verify this location and try again."
+error() {
+	echo "SEVERE ERROR! ${@}${LINSTRAP_ERROR_APPEND}"
+	exit 1
+}
+
+## Initialize the directories
+if [ $LINSTRAP_ROOT ]; then
+	LINSTRAP_ROOT=$(realpath "$LINSTRAP_ROOT")
+	if [ -d $LINSTRAP_ROOT ]; then
+		error "The LINSTRAP_ROOT variable points to an invalid target. Specified directory is \"$LINSTRAP_ROOT\"."
+    fi
 else
     # Resolve links: $0 may be a link
     PRG="$0"
@@ -46,23 +55,14 @@ else
     done
     SAVED="`pwd`"
     cd "`dirname \"$PRG\"`/" >/dev/null
-    LINSTRAP_HOME="`pwd -P`"
+    LINSTRAP_ROOT="`pwd -P`"
     cd "$SAVED" >/dev/null
-
-    VERIFY_MSG="The Linstrap home directory was auto detected as:\n\"$LINSTRAP_HOME\"\nPlease verify that the script is located in the real root directory\nor you can manually set the directory with the LINSTRAP_HOME veriable."
 fi
 
-## Init Directories Locations
-## TODO Allow linstrap home to be specified as an argument, the home could also be a directory on an external USB device
-[ $LINSTRAP_ROOT ] && LINSTRAP_ROOT=$(realpath "$LINSTRAP_ROOT") || LINSTRAP_ROOT=$(realpath "${0%/*}")
-LINSTRAP_CHROOT="$LINSTRAP_ROOT/data"
-LINSTRAP_HOME="$LINSTRAP_CHROOT/linstrap"
-LINSTRAP_SCRIPTS="$LINSTRAP_HOME/scripts"
-
-error() {
-	echo "SEVERE ERROR! ${@}${LINSTRAP_ERROR_APPEND}"
-	exit 1
-}
+LINSTRAP_DATA="$LINSTRAP_ROOT/data"
+LINSTRAP_DATA_ROOT="$LINSTRAP_ROOT/data_root"
+LINSTRAP_DATA_OVERLAY="$LINSTRAP_ROOT/data_overlay"
+LINSTRAP_DATA_WORKDIR="$LINSTRAP_ROOT/data_workdir"
 
 ## Override the echo function
 echo() {
@@ -76,27 +76,45 @@ check_dir() {
 	fi
 }
 
+make_dirs() {
+	local DIR CODE
+	CODE=1
+	for DIR in $*; do
+		if [ -d "$DIR" ]; then
+			mkdir -vp "$DIR" || exit 1
+			CODE=0
+		fi
+	done
+	return $CODE
+}
+
 include_script() {
-	if [ -f "${LINSTRAP_SCRIPTS}/${1}" ]; then
-		source "${LINSTRAP_SCRIPTS}/${1}"
+	if [ -f "${LINSTRAP_DATA}/linstrap/scripts/${1}" ]; then # Attempt to check the final mount point
+		source "${LINSTRAP_DATA}/linstrap/scripts/${1}"
+	elif [ -f "${LINSTRAP_DATA_ROOT}/linstrap/scripts/${1}" ]; then # If that fails, failover to using the root mount
+		source "${LINSTRAP_DATA_ROOT}/linstrap/scripts/${1}"
 	else
 		error "The script \"${1}\" was not found in the scripts directory. $(var_dump LINSTRAP_SCRIPTS)"
 	fi
 }
 
-## Init Variables
-LINSTRAP_ERROR_APPEND="\n  Please consider providing feedback and/or contributing to this project at https://github.com/PenoaksDev/Linstrap"
-LINSTRAP_VERSION="1.0"
-LINSTRAP_TITLE="Welcome to the Linux OS Bootstraping and Launcher Utility v$LINSTRAP_VERSION"
-LINSTRAP_AUTHOR="Created by Amelia S. Greene (BarelyAPrincess)"
-
 ## XXX /bin/sh does not have a declare? We seriously might want to see about using python, perl, or php instead of shell scripts.
 declare -l FUNCTION ## Make lowercase
 
-check_dir $LINSTRAP_CHROOT " Linstrap chroot"
+check_dir $LINSTRAP_ROOT " Linstrap root"
+
+test -f ${LINSTRAP_ROOT}/.env && source ${LINSTRAP_ROOT}/.env
 
 include_script "env"
 include_script "func"
+
+## Init Variables
+[ $LINSTRAP_ERROR_APPEND ] || LINSTRAP_ERROR_APPEND="\n  Please consider providing feedback and/or contributing to this project at https://github.com/PenoaksDev/Linstrap"
+[ $LINSTRAP_VERSION ] || LINSTRAP_VERSION="git$(git rev-parse --short HEAD 2>/dev/null)"
+[ $LINSTRAP_TITLE ] || LINSTRAP_TITLE="Welcome to the Linux OS Bootstraping and Launcher Utility v$LINSTRAP_VERSION"
+[ $LINSTRAP_AUTHOR ] || LINSTRAP_AUTHOR="Created by Amelia S. Greene (BarelyAPrincess)"
+[ $WIDTH ] || WIDTH=88
+[ $HEIGHT ] || HEIGHT=$(($WIDTH / 3))
 
 startup() {
 	include_script "header"
@@ -112,16 +130,39 @@ startup() {
 	[ `whoami` == "root" ] || error "Nope! This script can only be ran as root at this moment due to its use of 'chroot'. Support for 'fakechroot' will be added later.$LINSTRAP_ERROR_APPEND"
 	echo "Yes!"
 
-	echo -n "  Is the home directory \"$LINSTRAP_HOME\" missing any files or directories? "
-	check_dir "$LINSTRAP_HOME"
-	check_dir "$LINSTRAP_SCRIPTS"
-	echo " Nope! :P"
+	echo -n "  Is the data directories all accounted for? "
+	check_dir "${LINSTRAP_DATA_ROOT}"
+	make_dirs "${LINSTRAP_DATA}" "${LINSTRAP_DATA_OVERLAY}" "${LINSTRAP_DATA_WORKDIR}" && echo " Missing, but easily fixed!" || echo " Present!"
+
+	echo -n "  Is the overlayfs mounted? "
+	if [ "$(mount | grep -E "(.*(|lowerdir=|upperdir=|workdir=)${LINSTRAP_DATA}){4}")" == "" ]; then
+		if [ "$(ls $LINSTRAP_DATA)" == "" ]; then
+			error " Nope! WARNING: We detected that files exist in the directory!"
+		else
+			# error " Nope! Run \"$0 init\""
+			mount -t overlay overlay -olowerdir=${LINSTRAP_DATA_ROOT},upperdir=${LINSTRAP_DATA_OVERLAY},workdir=${LINSTRAP_DATA_WORKDIR} ${LINSTRAP_DATA}
+			echo " Nope, but we fixed it!"
+		fi
+	else
+		echo " Yep!"
+	fi
 
 	echo -n "  Is all the expected environment variables set? "
-	check_var CHROOT
+	LINSTRAP_HOME=${LINSTRAP_HOME:-"$LINSTRAP_DATA/linstrap"}
+	LINSTRAP_SCRIPTS=${LINSTRAP_SCRIPTS:-"$LINSTRAP_HOME/scripts"}
+
 	check_var LINSTRAP_ROOT
-	check_var LINSTRAP_CHROOT
+	check_var LINSTRAP_DATA_ROOT
+	check_var LINSTRAP_DATA_OVERLAY
+	check_var LINSTRAP_DATA_WORKDIR
+	check_var LINSTRAP_DATA
+	check_var LINSTRAP_HOME
+	check_var LINSTRAP_SCRIPTS
 	echo " Yes!"
+
+	echo -n "  Is the home directory \"$LINSTRAP_HOME\" missing anything? "
+	local TEMP="${LINSTRAP_DATA_ROOT}/linstrap"
+	make_dirs "${TEMP}" "${TEMP}/scripts" "${TEMP}/menus" "${TEMP}/templates" && echo " Missing, but easily fixed!" || echo " Nada!"
 
 	echo
 }
@@ -133,23 +174,51 @@ launch() {
 
 	## Add message that if the init system fails to launch, the suggestion to use git to reset can be presented.
 
-	echo "Everything checks out! Now launching Linstrap chroot located at \"${LINSTRAP_CHROOT}\"..."
+	echo "Everything checks out! Now launching Linstrap chroot located at \"${LINSTRAP_DATA}\"..."
 	echo
-	$CHROOT "${LINSTRAP_CHROOT}" $1
+	$CHROOT "${LINSTRAP_DATA}" $1
 
 	for LOC in $(ls ${LINSTRAP_HOME}/scripts/chroot-post-* 2>/dev/null); do
 		test -f "$LOC" && source $LOC
 	done
 }
 
+pack() {
+	echo "Not Implemented"
+}
+
 case $FUNCTION in
-	"launch" )
+	"up" )
 		startup
-		launch /linstrap/launch
+		launch "/bin/env -i /linstrap/launch"
 		;;
-	"enter" )
+	"down" )
 		startup
-		launch /bin/sh
+		launch "${1:-"/bin/env -i bash"}"
+		;;
+	"init" )
+		startup
+
+		DEBOOTSTRAP_DIR="${LINSTRAP_DATA_ROOT}/debootstrap"
+		DEBOOTSTRAP_DEST="${LINSTRAP_ROOT}/debootstrap_workdir"
+
+		[ -f "${DEBOOTSTRAP_DIR}/debootstrap" ] || error "The debootstrap binary is missing."
+
+		${DEBOOTSTRAP_DIR}/debootstrap --extractor=ar --variant empty --include="base-files,busybox-static,bash,dialog,fdisk,e2fsprogs,bsdutils,grep,sed,tar" --components="main,restricted,universe,multiverse" $@ focal ${DEBOOTSTRAP_DEST}
+
+		chroot ${DEBOOTSTRAP_DEST} <<-EOF
+			/bin/busybox --install
+			rm -r /etc/{apt,dpkg}
+			rm -r /usr/share/{man,doc,locale}
+			rm -r /var/cache/apt
+			rm -r /var/lib/{apt,dpkg}
+			rm -r /debootstrap
+			rm -r /root
+		EOF
+
+		## TODO Implement a type of file filter that looks for changes and prompts the user for input
+
+		rsync -avh --progress --delete ${DEBOOTSTRAP_DEST}/ $LINSTRAP_ROOT/test/
 		;;
 	"update" )
 		startup
@@ -161,7 +230,7 @@ case $FUNCTION in
 		error "Not Implemented"
 		;;
 	"help" | "usage" )
-		echo "${0} [launch|enter|update|install|help] [options]"
+		echo "${0} [launch|chroot|pack|update|install|help] [options]"
 		;;
 	* )
 		error "The function \"$FUNCTION\" is not recognized. The default function is 'launch' or try using the 'help' function for a list of accepted functions."

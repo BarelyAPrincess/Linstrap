@@ -1,0 +1,34 @@
+#!/bin/bash -e
+[ $LINSTRAP_BUILD_ROOT ] || exit 1
+
+addMenuOption "Create/Update Root System" "updateRootSystem"
+
+updateRootSystem() {
+    mkdir -pv ${LINSTRAP_BUILD_ROOT} 2>/dev/null
+
+    debootstrap --arch amd64 --variant minbase focal ${LINSTRAP_BUILD_ROOT}
+
+    # Debootstrap creates these files
+    # mkdir -pv ${LINSTRAP_BUILD_ROOT}/{dev,proc,sys,run}
+    # mknod -m 600 ${LINSTRAP_BUILD_ROOT}/dev/console c 5 1
+    # mknod -m 666 ${LINSTRAP_BUILD_ROOT}/dev/null c 1 3
+
+    # mount -v --bind /dev ${LINSTRAP_BUILD_ROOT}/dev
+    mount -vt devpts devpts ${LINSTRAP_BUILD_ROOT}/dev/pts -o gid=5,mode=620
+    mount -vt proc proc ${LINSTRAP_BUILD_ROOT}/proc
+    mount -vt sysfs sysfs ${LINSTRAP_BUILD_ROOT}/sys
+    mount -vt tmpfs tmpfs ${LINSTRAP_BUILD_ROOT}/run
+
+    # mkdir -v ${LINSTRAP_BUILD_ROOT}/tools
+    # ln -sv ${LINSTRAP_BUILD_ROOT}/tools /
+
+    for s in `ls ${LINSTRAP_HOME}/data/modules/${PROJECT}/*`; do
+	    test -e "$s" && source $s
+    done
+    
+    # apt install git gcc curl make libxml2-utils flex m4 bison nano lib32stdc++6 libelf-dev libssl-dev libncurses5-dev python-enum34 python-mako xz-utils binutils diffutils bzip2 wget openjdk-8-jdk-headless
+
+    # libpython2-stdlib libpython2.7-minimal libpython2.7-stdlib libreadline8 mime-support python-is-python2 python2 python2-minimal python2.7 python2.7-minimal readline-common
+    # ca-certificates ca-certificates-java fontconfig-config fonts-dejavu-core java-common libavahi-client3 libavahi-common-data libavahi-common3 libbsd0 libcups2 libdbus-1-3 libfontconfig1 libfreetype6 libjpeg-turbo8 libjpeg8 liblcms2-2
+    # libnspr4 libnss3 libpcsclite1 libpng16-16 libx11-6 libx11-data libxau6 libxcb1 libxdmcp6 libxext6 libxi6 libxrender1 libxtst6 openjdk-8-jdk-headless openjdk-8-jre-headless openssl ucf x11-common
+}

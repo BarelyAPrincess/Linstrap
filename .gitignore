@@ -1,6 +1,6 @@
-# Temporary Files
 .vscode
-.zz-**
-
-# Ignore Gradle build output directory
-build
+.zz-*
+/debootstrap_workdir
+/data_workdir/**
+/data_overlay/**
+/data/**

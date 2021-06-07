@@ -1,0 +1,8 @@
+#!/bin/bash -e
+[ ${LINSTRAP_HOME} ] || exit 1
+
+addMenuOption "Update Linstrap" "updateLinstrap"
+
+updateLinstrap() {
+    PWD=\"${LINSTRAP_HOME}\" git pull 2>&1 | dialog --programbox "Update Linstrap" 30 100
+}
