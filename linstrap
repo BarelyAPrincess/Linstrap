@@ -1,4 +1,5 @@
-#!/usr/bin/env -S bash
+#!/bin/bash
+#
 ##############################################################################
 ##  This software may be modified and distributed under the terms
 ##  of the MIT license.  See the LICENSE file for details.
@@ -13,141 +14,19 @@
 ##  Copyright (c) 2021 Amelia Sara Greene <barelyaprincess@gmail.com>
 ##  Copyright (c) 2021 Penoaks Publishing LLC <development@penoaks.com>
 ##
-##  Linstrap JVM Bootstrap script for UN*X
+##  Linstrap: Linux OS Bootstrapping and Launcher for UN*X
 ##############################################################################
 
-if [ "$0" == "*bash" ]; then
-    /usr/bin/env -S bash `realpath $0`
+## Prevent script from being source'd
+if [ "$0" == "*bash" || "$0" == "*sh" ]; then
+    /bin/bash `realpath $0`
     return $?
 fi
 
-yes() {
-    [ $1 ] && eval "$1=0" || echo -n 0
-}
+## TODO Check the script is being executed with bash, sh will have compatibility issues.
 
-no() {
-    [ $1 ] && eval "$1=1" || echo -n 1
-}
-
-is() {
-    [ $1 ] && eval "CV=\${$1}" || CV=$1
-    [ "$CV" == "0" ] || return 1
-}
-
-sterilize_bool() {
-    eval "CV=\${$1}"
-    case $CV in
-        "1"|"yes"|"true")
-            EV=$(yes)
-            ;;
-        "0"|"no"|"false"|"")
-            EV=$(no)
-            ;;
-        *)
-            # Is there a way to prevent this from executing malicious code?
-            eval "$CV &>/dev/null"
-            EV="$?"
-            ;;
-    esac
-
-    [ $1 ] && eval "$1=\"$EV\"" || return $EV
-}
-
-echo() {
-  if [ $# -eq 0 ]; then
-    builtin echo
-  else
-    OPTIONS="-e"
-    VAR=""
-    eval set -- "$(getopt -n "echo" -o neE --long version --long help -- "$@")"
-    while :; do
-      if [ "$1" == "--help" ]; then
-        builtin echo --help
-        exit $?
-      elif [ "$1" == "--version" ]; then
-        builtin echo --version
-        exit $?
-      elif [ "$1" == "--" ]; then
-        shift
-        VAR="$*"
-        break;
-      else
-        OPTIONS="$OPTIONS $1"
-      fi
-      shift
-    done
-
-    if [ "$(LC_ALL=C type -t parse_color)" == "function" ]; then
-      VAR="$(parse_color "$VAR")"
-    else
-      VAR="${VAR//[&@][0-9A-Za-z]/}"
-    fi
-
-    builtin echo $OPTIONS "$VAR"
-  fi
-}
-
-last_arg() {
-  for i; do :; done
-  builtin echo -ne $i
-}
-
-is_builtin() {
-    [ "$(LC_ALL=C type -t ${1})" == "builtin" ]
-}
-
-join_by() { local d="$1"; shift; local f="$1"; shift; printf %s "$f" "${@/#/$d}"; }
-
-crash() {
-    echo "&4$@"
-    exit 1
-}
-
-sterilize_bool USE_COLOR
-
-case "$TERM" in
-    xterm-color|*-256color) USE_COLOR=$(yes);;
-esac
-
-# Check if setting the color causes an error
-if [ $USE_COLOR == "0" ] && ! tput setaf 1 >&/dev/null; then
-    USE_COLOR=$(no)
-fi
-
-if [ $USE_COLOR == "0" ]; then
-    [ $CODE_DEF ] || CODE_DEF="\e[96m"
-    [ $CODE_GOOD ] || CODE_GOOD="\e[1;36m"
-    [ $CODE_BLINK ] || CODE_BLINK="\e[5m"
-    [ $CODE_ERROR ] || CODE_ERROR="\e[1;41;97m"
-    [ $CODE_RESET ] || CODE_RESET="\e[39;0m"
-fi
-
-msg() {
-    echo -e "$CODE_DEF $1 $CODE_RESET"
-}
-
-alignCenter() {
-    LM=$((${2}/2-${#1}/2))
-    RM=$LM
-    [ $((${#1}%2)) == "1" ] && RM=$((RM-1))
-    echo -en "`printf '%*s' $LM`$1`printf '%*s' $RM`"
-}
-
-error() {
-    echo
-    echo
-    echo -e "        $CODE_ERROR ╔════════════════════════════════════════════════════════════════════╗ $CODE_RESET        ">&2
-    echo -e "        $CODE_ERROR ║ $CODE_BLINK$(alignCenter "!!! ERROR ERROR ERROR ERROR !!!" "66";)$CODE_RESET$CODE_ERROR ║ $CODE_RESET        ">&2
-    echo -e "        $CODE_ERROR ║                                                                    ║ $CODE_RESET        ">&2
-    echo -e $1 | while read line; do
-        echo -e "        $CODE_ERROR ║ $(alignCenter "$line" "66";) ║ $CODE_RESET        ">&2
-    done
-    echo -e "        $CODE_ERROR ╚════════════════════════════════════════════════════════════════════╝ $CODE_RESET        ">&2
-
-    echo
-    echo
-    exit 1
-}
+## Specifies what function will be executed
+FUNCTION=${1:-launch}
 
 # Attempt to set LINSTRAP_HOME
 if [ $LINSTRAP_HOME ]; then
@@ -173,33 +52,120 @@ else
     VERIFY_MSG="The Linstrap home directory was auto detected as:\n\"$LINSTRAP_HOME\"\nPlease verify that the script is located in the real root directory\nor you can manually set the directory with the LINSTRAP_HOME veriable."
 fi
 
-[ -d "$LINSTRAP_HOME" ] || error "The Linstrap home directory does not exist!\n\n$VERIFY_MSG"
+## Init Directories Locations
+## TODO Allow linstrap home to be specified as an argument, the home could also be a directory on an external USB device
+[ $LINSTRAP_ROOT ] && LINSTRAP_ROOT=$(realpath "$LINSTRAP_ROOT") || LINSTRAP_ROOT=$(realpath "${0%/*}")
+LINSTRAP_CHROOT="$LINSTRAP_ROOT/data"
+LINSTRAP_HOME="$LINSTRAP_CHROOT/linstrap"
+LINSTRAP_SCRIPTS="$LINSTRAP_HOME/scripts"
 
-[ -f "$LINSTRAP_HOME/.env" ] || error "We can not find the .env file located in the LINSTRAP_HOME!\n\n$VERIFY_MSG"
+error() {
+	echo "SEVERE ERROR! ${@}${LINSTRAP_ERROR_APPEND}"
+	exit 1
+}
 
-# Load Linstrap environment file
-. $LINSTRAP_HOME/.env && SUCCESS="yes" || error "We failed to load the .env file located in the LINSTRAP_HOME!\n\n$VERIFY_MSG"
+## Override the echo function
+echo() {
+	builtin echo -e "${@}"
+}
 
-msg ""
-msg "                                                                       "
-msg "  ██▓     ██▓ ███▄    █   ██████ ▄▄▄█████▓ ██▀███   ▄▄▄       ██▓███   "
-msg " ▓██▒    ▓██▒ ██ ▀█   █ ▒██    ▒ ▓  ██▒ ▓▒▓██ ▒ ██▒▒████▄    ▓██░  ██▒ "
-msg " ▒██░    ▒██▒▓██  ▀█ ██▒░ ▓██▄   ▒ ▓██░ ▒░▓██ ░▄█ ▒▒██  ▀█▄  ▓██░ ██▓▒ "
-msg " ▒██░    ░██░▓██▒  ▐▌██▒  ▒   ██▒░ ▓██▓ ░ ▒██▀▀█▄  ░██▄▄▄▄██ ▒██▄█▓▒ ▒ "
-msg " ░██████▒░██░▒██░   ▓██░▒██████▒▒  ▒██▒ ░ ░██▓ ▒██▒ ▓█   ▓██▒▒██▒ ░  ░ "
-msg " ░ ▒░▓  ░░▓  ░ ▒░   ▒ ▒ ▒ ▒▓▒ ▒ ░  ▒ ░░   ░ ▒▓ ░▒▓░ ▒▒   ▓▒█░▒▓▒░ ░  ░ "
-msg " ░ ░ ▒  ░ ▒ ░░ ░░   ░ ▒░░ ░▒  ░ ░    ░      ░▒ ░ ▒░  ▒   ▒▒ ░░▒ ░      "
-msg "   ░ ░    ▒ ░   ░   ░ ░ ░  ░  ░    ░        ░░   ░   ░   ▒   ░░        "
-msg "     ░  ░ ░           ░       ░              ░           ░  ░          "
-msg "                                                                       "
-msg " ╔════════════════════════════════════════════════════════════════════╗ "
-msg " ║ $CODE_GOOD$(alignCenter "Welcome to the Linux System Bootstraper Utility v1.0" "66";)$CODE_RESET ║"
-msg " ║ $CODE_GOOD$(alignCenter "Created by Amelia S. Greene (BarelyAPrincess)" "66";)$CODE_RESET ║"
-msg " ╚════════════════════════════════════════════════════════════════════╝ "
+check_dir() {
+	if [ ! -d "$1" ]; then
+		## TODO If something is missing, ask to create it?
+		error "\nyes... :( The$2 directory \"$1\" does not exist!"
+	fi
+}
 
-# Arg 1 is the project name
-PROJECT=${1:-HoneyPotLinux}
-LINSTRAP_BUILD_ROOT=${LINSTRAP_HOME}/build/${PROJECT}/root
+include_script() {
+	if [ -f "${LINSTRAP_SCRIPTS}/${1}" ]; then
+		source "${LINSTRAP_SCRIPTS}/${1}"
+	else
+		error "The script \"${1}\" was not found in the scripts directory. $(var_dump LINSTRAP_SCRIPTS)"
+	fi
+}
 
-source ${LINSTRAP_HOME}/scripts/mainmenu
+## Init Variables
+LINSTRAP_ERROR_APPEND="\n  Please consider providing feedback and/or contributing to this project at https://github.com/PenoaksDev/Linstrap"
+LINSTRAP_VERSION="1.0"
+LINSTRAP_TITLE="Welcome to the Linux OS Bootstraping and Launcher Utility v$LINSTRAP_VERSION"
+LINSTRAP_AUTHOR="Created by Amelia S. Greene (BarelyAPrincess)"
+
+## XXX /bin/sh does not have a declare? We seriously might want to see about using python, perl, or php instead of shell scripts.
+declare -l FUNCTION ## Make lowercase
+
+check_dir $LINSTRAP_CHROOT " Linstrap chroot"
+
+include_script "env"
+include_script "func"
+
+startup() {
+	include_script "header"
+
+	echo "Checking Environment..."
+	echo
+	echo -n "  Is host arch X86_64? "
+	ARCH=`uname -m`
+	[ ${ARCH} == "x86_64" ] || error "Nope! Only X86_64 is supported at this moment."
+	echo "Yes!"
+
+	echo -n "  Running as root? "
+	[ `whoami` == "root" ] || error "Nope! This script can only be ran as root at this moment due to its use of 'chroot'. Support for 'fakechroot' will be added later.$LINSTRAP_ERROR_APPEND"
+	echo "Yes!"
+
+	echo -n "  Is the home directory \"$LINSTRAP_HOME\" missing any files or directories? "
+	check_dir "$LINSTRAP_HOME"
+	check_dir "$LINSTRAP_SCRIPTS"
+	echo " Nope! :P"
+
+	echo -n "  Is all the expected environment variables set? "
+	check_var CHROOT
+	check_var LINSTRAP_ROOT
+	check_var LINSTRAP_CHROOT
+	echo " Yes!"
+
+	echo
+}
+
+launch() {
+	for LOC in $(ls ${LINSTRAP_HOME}/scripts/chroot-pre-* 2>/dev/null); do
+		test -f "$LOC" && source $LOC
+	done
+
+	## Add message that if the init system fails to launch, the suggestion to use git to reset can be presented.
+
+	echo "Everything checks out! Now launching Linstrap chroot located at \"${LINSTRAP_CHROOT}\"..."
+	echo
+	$CHROOT "${LINSTRAP_CHROOT}" $1
+
+	for LOC in $(ls ${LINSTRAP_HOME}/scripts/chroot-post-* 2>/dev/null); do
+		test -f "$LOC" && source $LOC
+	done
+}
+
+case $FUNCTION in
+	"launch" )
+		startup
+		launch /linstrap/launch
+		;;
+	"enter" )
+		startup
+		launch /bin/sh
+		;;
+	"update" )
+		startup
+		echo "Updating Linstrap from GIT repository. Make sure GIT is installed."
+		git pull
+		;;
+	"install" )
+		## TODO Will copy self to an external thumb drive and optionally generate the initrd and grub config.
+		error "Not Implemented"
+		;;
+	"help" | "usage" )
+		echo "${0} [launch|enter|update|install|help] [options]"
+		;;
+	* )
+		error "The function \"$FUNCTION\" is not recognized. The default function is 'launch' or try using the 'help' function for a list of accepted functions."
+		;;
+esac
+
 exit 0

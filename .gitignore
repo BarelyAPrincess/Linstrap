@@ -1,15 +1,6 @@
 # Temporary Files
-/cache/**
-/bin/debootstrap
-/gradlew
-/workdir
-/build
 .vscode
-
-# Gradle Project Files
-.gradle
-gradle-app.setting
-!gradle.jar
+.zz-**
 
 # Ignore Gradle build output directory
 build

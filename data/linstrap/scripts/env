@@ -1,0 +1,3 @@
+CHROOT=${CHROOT:-chroot}
+ARCH=${ARCH:-x86_64} #Unused
+DEST=${DEST:-HoneyPotLinux} # Unused
