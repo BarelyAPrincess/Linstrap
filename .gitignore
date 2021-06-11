@@ -4,3 +4,4 @@
 /data_workdir/**
 /data_overlay/**
 /data/**
+/build/**

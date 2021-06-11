@@ -150,6 +150,7 @@ startup() {
 	echo -n "  Is all the expected environment variables set? "
 	LINSTRAP_HOME=${LINSTRAP_HOME:-"$LINSTRAP_DATA/linstrap"}
 	LINSTRAP_SCRIPTS=${LINSTRAP_SCRIPTS:-"$LINSTRAP_HOME/scripts"}
+	LINSTRAP_BUILD=${LINSTRAP_BUILD:-"$LINSTRAP_ROOT/build"}
 
 	check_var LINSTRAP_ROOT
 	check_var LINSTRAP_DATA_ROOT
@@ -158,6 +159,7 @@ startup() {
 	check_var LINSTRAP_DATA
 	check_var LINSTRAP_HOME
 	check_var LINSTRAP_SCRIPTS
+	check_var LINSTRAP_BUILD
 	echo " Yes!"
 
 	echo -n "  Is the home directory \"$LINSTRAP_HOME\" missing anything? "
@@ -200,7 +202,7 @@ case $FUNCTION in
 		startup
 
 		DEBOOTSTRAP_DIR="${LINSTRAP_DATA_ROOT}/debootstrap"
-		DEBOOTSTRAP_DEST="${LINSTRAP_ROOT}/debootstrap_workdir"
+		DEBOOTSTRAP_DEST="${LINSTRAP_BUILD}/workdir"
 
 		[ -f "${DEBOOTSTRAP_DIR}/debootstrap" ] || error "The debootstrap binary is missing."
 
@@ -218,7 +220,7 @@ case $FUNCTION in
 
 		## TODO Implement a type of file filter that looks for changes and prompts the user for input
 
-		rsync -avh --progress --delete ${DEBOOTSTRAP_DEST}/ $LINSTRAP_ROOT/test/
+		rsync -avh --progress --delete ${DEBOOTSTRAP_DEST}/ $LINSTRAP_DATA_OVERLAY/
 		;;
 	"update" )
 		startup
