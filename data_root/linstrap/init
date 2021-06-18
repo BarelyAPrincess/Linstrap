@@ -1,3 +1,0 @@
-#!/bin/usr/busybox sh
-#
-## This script is to only be ran as part of initrd

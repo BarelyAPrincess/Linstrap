@@ -19,11 +19,13 @@
 
 ## Prevent script from being source'd
 if [ "$0" == "*bash" -o "$0" == "*sh" ]; then
-    /bin/bash `realpath $0`
+    /usr/sbin/env bash `realpath $0`
     return $?
 fi
 
-## TODO Check the script is being executed with bash, sh will have compatibility issues.
+## TODO Check the script is being executed with bash, sh will likely have compatibility issues.
+
+## TODO Create a function that creates additional environment variables about the running process. (i.e. /proc/$$/status)
 
 ## Specifies what function will be executed
 FUNCTION=${1:-launch}
@@ -59,15 +61,9 @@ else
     cd "$SAVED" >/dev/null
 fi
 
-LINSTRAP_DATA="$LINSTRAP_ROOT/data"
-LINSTRAP_DATA_ROOT="$LINSTRAP_ROOT/data_root"
-LINSTRAP_DATA_OVERLAY="$LINSTRAP_ROOT/data_overlay"
-LINSTRAP_DATA_WORKDIR="$LINSTRAP_ROOT/data_workdir"
-
-## Override the echo function
-echo() {
-	builtin echo -e "${@}"
-}
+LINSTRAP_DATA="$LINSTRAP_ROOT/data" # The base Linstrap files that are shared with the Linstraper Launcher.
+LINSTRAP_BUILD="$LINSTRAP_ROOT/build" # Where system files will come together. Ignored by git.
+LINSTRAP_OUT="$LINSTRAP_ROOT/out" # Packed images for booting will be kept here. Ignored by git.
 
 check_dir() {
 	if [ ! -d "$1" ]; then
@@ -89,10 +85,8 @@ make_dirs() {
 }
 
 include_script() {
-	if [ -f "${LINSTRAP_DATA}/linstrap/scripts/${1}" ]; then # Attempt to check the final mount point
-		source "${LINSTRAP_DATA}/linstrap/scripts/${1}"
-	elif [ -f "${LINSTRAP_DATA_ROOT}/linstrap/scripts/${1}" ]; then # If that fails, failover to using the root mount
-		source "${LINSTRAP_DATA_ROOT}/linstrap/scripts/${1}"
+	if [ -f "${LINSTRAP_DATA}/scripts/${1}" ]; then
+		source "${LINSTRAP_DATA}/scripts/${1}"
 	else
 		error "The script \"${1}\" was not found in the scripts directory. $(var_dump LINSTRAP_SCRIPTS)"
 	fi
@@ -189,38 +183,35 @@ pack() {
 	echo "Not Implemented"
 }
 
+test -f /sys/firmware/efi
+BOOTED_WITH_EFI=$? # Zero means yes!
+
+
+
 case $FUNCTION in
-	"up" )
+	"init" )
+		startup
+
+		# Detect dirty build
+		[ "$(ls -A $LINSTRAP_BUILD)" ] && error "The build directory is dirty. We must have an empty directory to continue!"
+
+		DEBOOTSTRAP_DIR="${LINSTRAP_BUILD}/debootstrap"
+		[ -f "${DEBOOTSTRAP_DIR}/debootstrap" ] || error "The debootstrap binary is missing." # TODO Offer to download it!
+
+		# ${DEBOOTSTRAP_DIR}/debootstrap --extractor=ar --variant empty --include="base-files,busybox-static,bash,dialog,fdisk,e2fsprogs,bsdutils,grep,sed,tar" --components="main,restricted,universe,multiverse" $@ focal ${DEBOOTSTRAP_DEST}
+		## TODO Implement a type of file filter that looks for changes and prompts the user for input
+		;;
+	"pack" ) # Create an export bundle for booting Linstrap on any BIOS or EFI system.
+		startup
+		launch "/bin/env -i /linstrap/pack"
+		;;
+	"up" ) # Used to launch the Linstrap launcher on the local machine. Using QEMU by default, but using a chroot is a backup option.
 		startup
 		launch "/bin/env -i /linstrap/launch"
 		;;
 	"down" )
 		startup
 		launch "${1:-"/bin/env -i bash"}"
-		;;
-	"init" )
-		startup
-
-		DEBOOTSTRAP_DIR="${LINSTRAP_DATA_ROOT}/debootstrap"
-		DEBOOTSTRAP_DEST="${LINSTRAP_BUILD}/workdir"
-
-		[ -f "${DEBOOTSTRAP_DIR}/debootstrap" ] || error "The debootstrap binary is missing."
-
-		${DEBOOTSTRAP_DIR}/debootstrap --extractor=ar --variant empty --include="base-files,busybox-static,bash,dialog,fdisk,e2fsprogs,bsdutils,grep,sed,tar" --components="main,restricted,universe,multiverse" $@ focal ${DEBOOTSTRAP_DEST}
-
-		chroot ${DEBOOTSTRAP_DEST} <<-EOF
-			/bin/busybox --install
-			rm -r /etc/{apt,dpkg}
-			rm -r /usr/share/{man,doc,locale}
-			rm -r /var/cache/apt
-			rm -r /var/lib/{apt,dpkg}
-			rm -r /debootstrap
-			rm -r /root
-		EOF
-
-		## TODO Implement a type of file filter that looks for changes and prompts the user for input
-
-		rsync -avh --progress --delete ${DEBOOTSTRAP_DEST}/ $LINSTRAP_DATA_OVERLAY/
 		;;
 	"update" )
 		startup

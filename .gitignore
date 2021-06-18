@@ -1,7 +1,4 @@
 .vscode
 .zz-*
-/debootstrap_workdir
-/data_workdir/**
-/data_overlay/**
-/data/**
+/out/**
 /build/**

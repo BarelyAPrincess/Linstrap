@@ -184,7 +184,7 @@ create_initrd_nested() {
     # copy in busybox-static from root, and link executables
     cp -f "$DEBIRF_ROOT"/bin/busybox "$NEST_ROOT"/bin/
     for util in awk cpio free grep gunzip ls mkdir mount rm sh umount ; do
-	ln "$NEST_ROOT"/bin/busybox "$NEST_ROOT"/bin/"$util"
+	ln -s "$NEST_ROOT"/bin/busybox "$NEST_ROOT"/bin/"$util"
     done
 
     # copy in run-init and needed libraries
