@@ -1,0 +1,12 @@
+# Notes
+# Scripts contain .script. for entrypoints to tasks and .env. for environment variables.
+
+# Workspace Setup
+-Directories:
+    1. Boot > Contains boot files ready for deployment
+    2. Initrd > Contains initrd source files
+    3. Kernel > Contains HoneyPotLinux kernel
+    4. Migrations > Contains migrations files
+-Files
+    1. app_migrate.script.sh > Runs migration
+    1. app.env.sh > Contains app vars

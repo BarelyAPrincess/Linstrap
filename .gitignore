@@ -1,4 +1,2 @@
-.vscode
-.zz-*
-/out/**
-/build/**
+/Source/Kernel/**
+/Build/Boot/**

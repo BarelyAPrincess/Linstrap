@@ -1,7 +1,0 @@
-# Install base Ubuntu 20.04 System on a hard drive.
-meta:
-  version: 1.0
-  script: bootstrap.script
-  requirements:
-    commands:
-      - debootstrap

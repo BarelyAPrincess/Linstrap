@@ -1,0 +1,16 @@
+function show_header() {
+    msg ""
+    msg "$(alignCenter "                                                                       " "$WIDTH";)"
+    msg "$(alignCenter "  ██▓     ██▓ ███▄    █   ██████ ▄▄▄█████▓ ██▀███   ▄▄▄       ██▓███   " "$WIDTH";)"
+    msg "$(alignCenter " ▓██▒    ▓██▒ ██ ▀█   █ ▒██    ▒ ▓  ██▒ ▓▒▓██ ▒ ██▒▒████▄    ▓██░  ██▒ " "$WIDTH";)"
+    msg "$(alignCenter " ▒██░    ▒██▒▓██  ▀█ ██▒░ ▓██▄   ▒ ▓██░ ▒░▓██ ░▄█ ▒▒██  ▀█▄  ▓██░ ██▓▒ " "$WIDTH";)"
+    msg "$(alignCenter " ▒██░    ░██░▓██▒  ▐▌██▒  ▒   ██▒░ ▓██▓ ░ ▒██▀▀█▄  ░██▄▄▄▄██ ▒██▄█▓▒ ▒ " "$WIDTH";)"
+    msg "$(alignCenter " ░██████▒░██░▒██░   ▓██░▒██████▒▒  ▒██▒ ░ ░██▓ ▒██▒ ▓█   ▓██▒▒██▒ ░  ░ " "$WIDTH";)"
+    msg "$(alignCenter " ░ ▒░▓  ░░▓  ░ ▒░   ▒ ▒ ▒ ▒▓▒ ▒ ░  ▒ ░░   ░ ▒▓ ░▒▓░ ▒▒   ▓▒█░▒▓▒░ ░  ░ " "$WIDTH";)"
+    msg "$(alignCenter " ░ ░ ▒  ░ ▒ ░░ ░░   ░ ▒░░ ░▒  ░ ░    ░      ░▒ ░ ▒░  ▒   ▒▒ ░░▒ ░      " "$WIDTH";)"
+    msg "$(alignCenter "   ░ ░    ▒ ░   ░   ░ ░ ░  ░  ░    ░        ░░   ░   ░   ▒   ░░        " "$WIDTH";)"
+    msg "$(alignCenter "     ░  ░ ░           ░       ░              ░           ░  ░          " "$WIDTH";)"
+    msg ""
+    msgbox "$LINSTRAP_TITLE $LINSTRAP_VERSION" "$LINSTRAP_AUTHOR"
+    msg ""
+}
