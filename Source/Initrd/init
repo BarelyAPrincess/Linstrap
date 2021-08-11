@@ -1,0 +1,228 @@
+#!/bin/busybox sh
+
+# configure debugging output
+if [ "$DEBUG" -gt "0" ]; then
+	set -x
+elif [ -n "$DEBUG" ]; then
+	exec 2>> /tmp/log
+	set -x
+else
+	LOG=/dev/null
+	test -e "$LOG" || busybox mknod $LOG c 1 3
+	exec 2>> $LOG
+fi
+
+
+mkdir /proc
+mkdir /sys
+mkdir /sbin
+mkdir /bin
+ln -s /bin /usr/sbin
+ln -s /bin /usr/bin
+
+# early boot
+if test x"$HAS_CTTY" != x"Yes"; then
+	# initialise /proc and /sys
+	busybox mount -t proc proc /proc
+	busybox mount -t sysfs sys /sys
+
+	# let busybox install all applets as symlinks
+	busybox --install -s
+
+	# spawn shells on tty 8 and 9 if debug
+	if test -n "$DEBUG"; then
+		# ensure they can open a controlling tty
+		mknod /dev/tty c 5 0
+		# create device nodes then spawn on them
+		# mknod /dev/tty2 c 4 8 && openvt
+		mknod /dev/tty3 c 4 9 && openvt
+		echo 0 0 0 0 > /proc/sys/kernel/printk
+	fi
+
+	# initialise /dev (first time)
+	mkdir -p /dev/block
+	echo /sbin/mdev > /proc/sys/kernel/hotplug
+	mdev -s
+	
+	# re-run this script with a controlling tty
+	exec env RESCUE="$RESCUE" HAS_CTTY=Yes setsid cttyhack /bin/sh "$0" "$@"
+
+	# We should never reach this line!
+fi
+
+# now running under a controlling tty; debug output from stderr into log file
+
+error()
+{
+	echo $*
+	return 1
+}
+
+try_mount()
+{
+	RW=$1; shift
+	case $(blkid $1) in
+		*TYPE=*ntfs*)
+			mount.ntfs-3g -o rw,force $@
+			;;
+		*TYPE=*)
+			mount -o $RW,noatime $@
+			;;
+		*)
+			return 1
+			;;
+	esac
+}
+
+remount_rw()
+{
+	# "foo" as mount source is given to workaround a Busybox bug with NFS
+	# - as it's ignored anyways it shouldn't harm for other filesystems.
+	mount -o remount,rw foo /mnt
+}
+
+debug_shell()
+{
+	if [ -x linstrap/bin/sh ]; then
+		echo Running MirBSD Korn Shell...
+		USER="($1)" linstrap/bin/sh -l 2>&1
+		[ $? -ne 0 ] && /bin/sh 2>&1
+	else
+		echo Running busybox ash...
+		busybox sh 2>&1
+	fi
+}
+
+check_root()
+{
+	if [ "`dirname $1`" = "/dev" ]; then
+		[ -e $1 ] || return 1
+		blk=`basename $1`
+		[ ! -e /dev/block/$blk ] && ln $1 /dev/block
+		dev=/dev/block/$blk
+	else
+		dev=$1
+	fi
+
+	try_mount ro $dev /mnt || return 1
+	if [ -e /mnt/$SRC/linstrap.img ]; then
+		remount_rw
+		mount -o loop,noatime /mnt/$SRC/linstrap.img linstrap
+	elif [ -s /mnt/$SRC/linstrap/default.prop ]; then
+		remount_rw
+		mount --bind /mnt/$SRC/linstrap linstrap
+	elif [ -z "$SRC" -a -s /mnt/default.prop ]; then
+		mount --bind /mnt /linstrap
+	else
+		return 1
+	fi
+	echo " found at $1"
+	rm /sbin/mke2fs
+	hash -r
+}
+
+# Allows for the starting of DEBIRF if initrd is not acting right
+if [ "$RESCUE" -gt "0" ]; then
+	mkdir /newroot
+	MEMSIZE=$(free | grep 'Mem:' | awk '{ print $2 }')
+	mount -t tmpfs -o size=${MEMSIZE}k,mode=0755 tmpfs /newroot
+	cd /newroot
+	echo unpacking rootfs...
+	unxz - < /rootfs.cxz | cpio -i
+	umount /proc
+	echo running /sbin/init...
+	exec /bin/run-init . /sbin/init < ./dev/console > ./dev/console
+
+	# Should never reach this line
+fi
+
+KERNEL_MODULES="/lib/modules/$(uname -r)"
+[ -e "$KERNEL_MODULES" ] && echo "CRITICAL ERROR: We detected that the kernel does not have any valid modules present. There may be issues with some hardware."
+
+# ensure keyboard driver is loaded
+busybox modprobe -a atkbd hid-apple
+
+echo -n Detecting Linstrap Launcher...
+
+[ -z "$SRC" -a -n "$BOOT_IMAGE" ] && SRC=`dirname $BOOT_IMAGE`
+
+cd /
+while :; do
+	for device in ${ROOT:-/dev/[hmnsv][dmrv][0-9a-z]*}; do
+		[ -n "$DEBUG" ] && echo -en "\nTrying device $device"
+		check_root $device && break 2
+		mountpoint -q /mnt && umount /mnt
+	done
+
+	while :; do
+		echo -e "\n\nIt would appear we were unable to find the Linstrap Launcher."
+		echo "What would you like to do, [R]etry or [D]rop to shell?"
+		read OPT
+		case $OPT in
+			"r" | "R")
+				# Do Nothing
+				break;
+				;;
+			"d" | "D")
+				echo
+				echo '	Linstrap console shell. Use only in emergencies.'
+				echo
+				debug_shell fatal-error
+				break
+				;;
+			* )	echo "That is not a valid option!";;
+		esac
+	done
+done
+cd /linstrap
+
+# ln -s mnt/$SRC /src
+# ln -s linstrap/system /
+# ln -s ../system/lib/firmware ../system/lib/modules /lib
+
+# load scripts
+for s in `ls /scripts/* /src/scripts/*`; do
+	test -e "$s" && source $s
+done
+
+#if [ -n "$DEBUG" ]; then
+#	auto_detect &
+#fi
+
+if [ 0$DEBUG -gt 0 ]; then
+	echo -e "\nType 'exit' to continue booting...\n"
+	debug_shell debug-found
+fi
+
+# A target should provide its detect_hardware function.
+# On success, return 0 with the following values set.
+# return 1 if it wants to use auto_detect
+#[ "$AUTO" != "1" ] && detect_hardware && FOUND=1
+
+#load_modules
+#mount_data
+#mount_sdcard
+#setup_tslib
+#setup_dpi
+#post_detect
+
+if [ 0$DEBUG -gt 1 ]; then
+	echo -e "\nUse Alt-F1/F2/F3 to switch between virtual consoles"
+	echo -e "Type 'exit' to enter Linstrap...\n"
+
+	debug_shell debug-late
+fi
+
+[ -n "$DEBUG" ] && SWITCH=${SWITCH:-chroot}
+
+echo > /proc/sys/kernel/hotplug
+
+exec ${SWITCH:-switch_root} /linstrap /init
+
+# avoid kernel panic
+while :; do
+	echo
+	echo '	Linstrap console shell. Use only in emergencies.'
+	echo
+	debug_shell fatal-err
+done

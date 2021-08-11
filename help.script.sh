@@ -1,5 +1,7 @@
 error "Sorry, the help function is not inplemented yet!" "Looking at the files in the root you can get an idea of what functions are available."
 
+warningbox "You must specify a function to continue." "${0} [function] [options]" "Try the 'help' function for more information."
+
 cat <<EOF
 
 GNU bash, version 5.0.17(1)-release-(x86_64-pc-linux-gnu)

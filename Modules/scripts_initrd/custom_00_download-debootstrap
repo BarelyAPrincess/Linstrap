@@ -1,0 +1,10 @@
+checkdir_or_make DEBOOTSTRAP $LINSTRAP_MODULES/debootstrap
+
+## Download and extract debootstrap binary (version 1.0.123)
+if [ ! -f "$LINSTRAP_DEBOOTSTRAP/debootstrap" ]; then
+  echo
+  echo "The debootstrap binary does not exist, downloading..."
+
+  wget -O- http://deb.debian.org/debian/pool/main/d/debootstrap/debootstrap_1.0.123.tar.gz | tar -xvz -C "${LINSTRAP_DEBOOTSTRAP}"
+  # wget -O- https://salsa.debian.org/installer-team/debootstrap/-/archive/master/debootstrap-master.tar.gz | tar -xvzf - -C bin/debootstrap
+fi

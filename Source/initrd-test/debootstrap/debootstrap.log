@@ -1,0 +1,219 @@
+https://deb.debian.org/debian/dists/jessie/InRelease:
+2021-08-09 02:55:23 ERROR 404: Not Found.
+2021-08-09 02:55:23 URL:https://deb.debian.org/debian/dists/jessie/Release [77265/77265] -> "/data0/Linstrap/Source/initrd-test/var/lib/apt/lists/partial/deb.debian.org_debian_dists_jessie_Release" [1]
+2021-08-09 02:55:25 URL:https://deb.debian.org/debian/dists/jessie/main/binary-amd64/Packages.xz [6817508/6817508] -> "/data0/Linstrap/Source/initrd-test/var/lib/apt/lists/partial/deb.debian.org_debian_dists_jessie_main_binary-amd64_Packages.xz" [1]
+2021-08-09 02:55:27 URL:https://deb.debian.org/debian/pool/main/a/acl/libacl1_2.2.52-2_amd64.deb [27938/27938] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libacl1_2.2.52-2_amd64.deb" [1]
+2021-08-09 02:55:29 URL:https://deb.debian.org/debian/pool/main/a/apt/apt_1.0.9.8.4_amd64.deb [1108646/1108646] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/apt_1.0.9.8.4_amd64.deb" [1]
+2021-08-09 02:55:29 URL:https://deb.debian.org/debian/pool/main/a/apt/apt-transport-https_1.0.9.8.4_amd64.deb [137908/137908] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/apt-transport-https_1.0.9.8.4_amd64.deb" [1]
+2021-08-09 02:55:29 URL:https://deb.debian.org/debian/pool/main/a/attr/libattr1_2.4.47-2_amd64.deb [18278/18278] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libattr1_1%3a2.4.47-2_amd64.deb" [1]
+2021-08-09 02:55:30 URL:https://deb.debian.org/debian/pool/main/b/base-files/base-files_8+deb8u11_amd64.deb [78188/78188] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/base-files_8+deb8u11_amd64.deb" [1]
+2021-08-09 02:55:30 URL:https://deb.debian.org/debian/pool/main/b/base-passwd/base-passwd_3.5.37_amd64.deb [64518/64518] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/base-passwd_3.5.37_amd64.deb" [1]
+2021-08-09 02:55:31 URL:https://deb.debian.org/debian/pool/main/b/bash/bash_4.3-11+deb8u1_amd64.deb [1171862/1171862] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/bash_4.3-11+deb8u1_amd64.deb" [1]
+2021-08-09 02:55:32 URL:https://deb.debian.org/debian/pool/main/c/ca-certificates/ca-certificates_20141019+deb8u3_all.deb [206870/206870] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/ca-certificates_20141019+deb8u3_all.deb" [1]
+2021-08-09 02:55:33 URL:https://deb.debian.org/debian/pool/main/c/coreutils/coreutils_8.23-4_amd64.deb [2727240/2727240] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/coreutils_8.23-4_amd64.deb" [1]
+2021-08-09 02:55:33 URL:https://deb.debian.org/debian/pool/main/d/dash/dash_0.5.7-4+b1_amd64.deb [109056/109056] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/dash_0.5.7-4+b1_amd64.deb" [1]
+2021-08-09 02:55:33 URL:https://deb.debian.org/debian/pool/main/d/debconf/debconf_1.5.56+deb8u1_all.deb [167274/167274] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/debconf_1.5.56+deb8u1_all.deb" [1]
+2021-08-09 02:55:34 URL:https://deb.debian.org/debian/pool/main/d/debconf/debconf-i18n_1.5.56+deb8u1_all.deb [205992/205992] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/debconf-i18n_1.5.56+deb8u1_all.deb" [1]
+2021-08-09 02:55:34 URL:https://deb.debian.org/debian/pool/main/d/debianutils/debianutils_4.4+b1_amd64.deb [99062/99062] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/debianutils_4.4+b1_amd64.deb" [1]
+2021-08-09 02:55:35 URL:https://deb.debian.org/debian/pool/main/d/diffutils/diffutils_3.3-1+b1_amd64.deb [266998/266998] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/diffutils_1%3a3.3-1+b1_amd64.deb" [1]
+2021-08-09 02:55:37 URL:https://deb.debian.org/debian/pool/main/d/dpkg/dpkg_1.17.27_amd64.deb [2993546/2993546] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/dpkg_1.17.27_amd64.deb" [1]
+2021-08-09 02:55:37 URL:https://deb.debian.org/debian/pool/main/e/e2fsprogs/e2fslibs_1.42.12-2+b1_amd64.deb [185860/185860] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/e2fslibs_1.42.12-2+b1_amd64.deb" [1]
+2021-08-09 02:55:38 URL:https://deb.debian.org/debian/pool/main/e/e2fsprogs/e2fsprogs_1.42.12-2+b1_amd64.deb [750096/750096] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/e2fsprogs_1.42.12-2+b1_amd64.deb" [1]
+2021-08-09 02:55:38 URL:https://deb.debian.org/debian/pool/main/e/e2fsprogs/libcomerr2_1.42.12-2+b1_amd64.deb [60700/60700] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libcomerr2_1.42.12-2+b1_amd64.deb" [1]
+2021-08-09 02:55:39 URL:https://deb.debian.org/debian/pool/main/e/e2fsprogs/libss2_1.42.12-2+b1_amd64.deb [64962/64962] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libss2_1.42.12-2+b1_amd64.deb" [1]
+2021-08-09 02:55:40 URL:https://deb.debian.org/debian/pool/main/f/findutils/findutils_4.4.2-9+b1_amd64.deb [485428/485428] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/findutils_4.4.2-9+b1_amd64.deb" [1]
+2021-08-09 02:55:40 URL:https://deb.debian.org/debian/pool/main/g/gcc-4.8/gcc-4.8-base_4.8.4-1_amd64.deb [155340/155340] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/gcc-4.8-base_4.8.4-1_amd64.deb" [1]
+2021-08-09 02:55:41 URL:https://deb.debian.org/debian/pool/main/g/gcc-4.9/gcc-4.9-base_4.9.2-10+deb8u1_amd64.deb [159970/159970] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/gcc-4.9-base_4.9.2-10+deb8u1_amd64.deb" [1]
+2021-08-09 02:55:41 URL:https://deb.debian.org/debian/pool/main/g/gcc-4.9/libgcc1_4.9.2-10+deb8u1_amd64.deb [39494/39494] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libgcc1_1%3a4.9.2-10+deb8u1_amd64.deb" [1]
+2021-08-09 02:55:41 URL:https://deb.debian.org/debian/pool/main/g/glibc/libc-bin_2.19-18+deb8u10_amd64.deb [1280916/1280916] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libc-bin_2.19-18+deb8u10_amd64.deb" [1]
+2021-08-09 02:55:42 URL:https://deb.debian.org/debian/pool/main/g/glibc/libc6_2.19-18+deb8u10_amd64.deb [4665056/4665056] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libc6_2.19-18+deb8u10_amd64.deb" [1]
+2021-08-09 02:55:42 URL:https://deb.debian.org/debian/pool/main/g/glibc/multiarch-support_2.19-18+deb8u10_amd64.deb [180516/180516] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/multiarch-support_2.19-18+deb8u10_amd64.deb" [1]
+2021-08-09 02:55:43 URL:https://deb.debian.org/debian/pool/main/g/grep/grep_2.20-4.1_amd64.deb [325154/325154] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/grep_2.20-4.1_amd64.deb" [1]
+2021-08-09 02:55:43 URL:https://deb.debian.org/debian/pool/main/g/gzip/gzip_1.6-4_amd64.deb [111216/111216] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/gzip_1.6-4_amd64.deb" [1]
+2021-08-09 02:55:44 URL:https://deb.debian.org/debian/pool/main/h/hostname/hostname_3.15_amd64.deb [13914/13914] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/hostname_3.15_amd64.deb" [1]
+2021-08-09 02:55:44 URL:https://deb.debian.org/debian/pool/main/i/init-system-helpers/init_1.22_amd64.deb [4674/4674] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/init_1.22_amd64.deb" [1]
+2021-08-09 02:55:44 URL:https://deb.debian.org/debian/pool/main/libl/liblocale-gettext-perl/liblocale-gettext-perl_1.05-8+b1_amd64.deb [18974/18974] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/liblocale-gettext-perl_1.05-8+b1_amd64.deb" [1]
+2021-08-09 02:55:45 URL:https://deb.debian.org/debian/pool/main/libs/libselinux/libselinux1_2.3-2_amd64.deb [89808/89808] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libselinux1_2.3-2_amd64.deb" [1]
+2021-08-09 02:55:45 URL:https://deb.debian.org/debian/pool/main/libs/libsepol/libsepol1_2.3-2_amd64.deb [126888/126888] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libsepol1_2.3-2_amd64.deb" [1]
+2021-08-09 02:55:46 URL:https://deb.debian.org/debian/pool/main/libt/libtext-charwidth-perl/libtext-charwidth-perl_0.04-7+b3_amd64.deb [10684/10684] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libtext-charwidth-perl_0.04-7+b3_amd64.deb" [1]
+2021-08-09 02:55:46 URL:https://deb.debian.org/debian/pool/main/libt/libtext-iconv-perl/libtext-iconv-perl_1.7-5+b2_amd64.deb [16194/16194] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libtext-iconv-perl_1.7-5+b2_amd64.deb" [1]
+2021-08-09 02:55:46 URL:https://deb.debian.org/debian/pool/main/libt/libtext-wrapi18n-perl/libtext-wrapi18n-perl_0.06-7_all.deb [9004/9004] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libtext-wrapi18n-perl_0.06-7_all.deb" [1]
+2021-08-09 02:55:47 URL:https://deb.debian.org/debian/pool/main/l/lsb/lsb-base_4.1+Debian13+nmu1_all.deb [26738/26738] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/lsb-base_4.1+Debian13+nmu1_all.deb" [1]
+2021-08-09 02:55:47 URL:https://deb.debian.org/debian/pool/main/m/mawk/mawk_1.3.3-17_amd64.deb [90816/90816] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/mawk_1.3.3-17_amd64.deb" [1]
+2021-08-09 02:55:47 URL:https://deb.debian.org/debian/pool/main/n/ncurses/libncurses5_5.9+20140913-1+deb8u3_amd64.deb [96628/96628] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libncurses5_5.9+20140913-1+deb8u3_amd64.deb" [1]
+2021-08-09 02:55:48 URL:https://deb.debian.org/debian/pool/main/n/ncurses/libtinfo5_5.9+20140913-1+deb8u3_amd64.deb [282066/282066] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libtinfo5_5.9+20140913-1+deb8u3_amd64.deb" [1]
+2021-08-09 02:55:48 URL:https://deb.debian.org/debian/pool/main/n/ncurses/ncurses-base_5.9+20140913-1+deb8u3_all.deb [222478/222478] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/ncurses-base_5.9+20140913-1+deb8u3_all.deb" [1]
+2021-08-09 02:55:49 URL:https://deb.debian.org/debian/pool/main/n/ncurses/ncurses-bin_5.9+20140913-1+deb8u3_amd64.deb [347212/347212] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/ncurses-bin_5.9+20140913-1+deb8u3_amd64.deb" [1]
+2021-08-09 02:55:49 URL:https://deb.debian.org/debian/pool/main/p/pam/libpam-modules_1.1.8-3.1+deb8u2+b1_amd64.deb [307022/307022] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libpam-modules_1.1.8-3.1+deb8u2+b1_amd64.deb" [1]
+2021-08-09 02:55:50 URL:https://deb.debian.org/debian/pool/main/p/pam/libpam-modules-bin_1.1.8-3.1+deb8u2+b1_amd64.deb [104386/104386] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libpam-modules-bin_1.1.8-3.1+deb8u2+b1_amd64.deb" [1]
+2021-08-09 02:55:50 URL:https://deb.debian.org/debian/pool/main/p/pam/libpam-runtime_1.1.8-3.1+deb8u2_all.deb [212334/212334] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libpam-runtime_1.1.8-3.1+deb8u2_all.deb" [1]
+2021-08-09 02:55:51 URL:https://deb.debian.org/debian/pool/main/p/pam/libpam0g_1.1.8-3.1+deb8u2+b1_amd64.deb [126466/126466] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libpam0g_1.1.8-3.1+deb8u2+b1_amd64.deb" [1]
+2021-08-09 02:55:51 URL:https://deb.debian.org/debian/pool/main/p/pcre3/libpcre3_8.35-3.3+deb8u4_amd64.deb [322022/322022] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libpcre3_2%3a8.35-3.3+deb8u4_amd64.deb" [1]
+2021-08-09 02:55:52 URL:https://deb.debian.org/debian/pool/main/p/perl/perl-base_5.20.2-3+deb8u11_amd64.deb [1229672/1229672] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/perl-base_5.20.2-3+deb8u11_amd64.deb" [1]
+2021-08-09 02:55:52 URL:https://deb.debian.org/debian/pool/main/s/sed/sed_4.2.2-4+deb8u1_amd64.deb [242786/242786] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/sed_4.2.2-4+deb8u1_amd64.deb" [1]
+2021-08-09 02:55:53 URL:https://deb.debian.org/debian/pool/main/s/sensible-utils/sensible-utils_0.0.9+deb8u1_all.deb [10886/10886] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/sensible-utils_0.0.9+deb8u1_all.deb" [1]
+2021-08-09 02:55:53 URL:https://deb.debian.org/debian/pool/main/s/shadow/login_4.2-3+deb8u4_amd64.deb [721762/721762] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/login_1%3a4.2-3+deb8u4_amd64.deb" [1]
+2021-08-09 02:55:54 URL:https://deb.debian.org/debian/pool/main/s/shadow/passwd_4.2-3+deb8u4_amd64.deb [970748/970748] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/passwd_1%3a4.2-3+deb8u4_amd64.deb" [1]
+2021-08-09 02:55:54 URL:https://deb.debian.org/debian/pool/main/s/startpar/startpar_0.59-3_amd64.deb [21770/21770] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/startpar_0.59-3_amd64.deb" [1]
+2021-08-09 02:55:55 URL:https://deb.debian.org/debian/pool/main/s/sysvinit/initscripts_2.88dsf-59_amd64.deb [87172/87172] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/initscripts_2.88dsf-59_amd64.deb" [1]
+2021-08-09 02:55:55 URL:https://deb.debian.org/debian/pool/main/s/sysvinit/sysv-rc_2.88dsf-59_all.deb [82814/82814] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/sysv-rc_2.88dsf-59_all.deb" [1]
+2021-08-09 02:55:56 URL:https://deb.debian.org/debian/pool/main/s/sysvinit/sysvinit-utils_2.88dsf-59_amd64.deb [84400/84400] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/sysvinit-utils_2.88dsf-59_amd64.deb" [1]
+2021-08-09 02:55:56 URL:https://deb.debian.org/debian/pool/main/t/tar/tar_1.27.1-2+deb8u1_amd64.deb [676278/676278] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/tar_1.27.1-2+deb8u1_amd64.deb" [1]
+2021-08-09 02:55:57 URL:https://deb.debian.org/debian/pool/main/t/tzdata/tzdata_2018e-0+deb8u1_all.deb [233372/233372] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/tzdata_2018e-0+deb8u1_all.deb" [1]
+2021-08-09 02:55:57 URL:https://deb.debian.org/debian/pool/main/u/util-linux/bsdutils_2.25.2-6_amd64.deb [94050/94050] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/bsdutils_1%3a2.25.2-6_amd64.deb" [1]
+2021-08-09 02:55:58 URL:https://deb.debian.org/debian/pool/main/u/util-linux/libblkid1_2.25.2-6_amd64.deb [156214/156214] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libblkid1_2.25.2-6_amd64.deb" [1]
+2021-08-09 02:55:58 URL:https://deb.debian.org/debian/pool/main/u/util-linux/libmount1_2.25.2-6_amd64.deb [163786/163786] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libmount1_2.25.2-6_amd64.deb" [1]
+2021-08-09 02:55:59 URL:https://deb.debian.org/debian/pool/main/u/util-linux/libsmartcols1_2.25.2-6_amd64.deb [110248/110248] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libsmartcols1_2.25.2-6_amd64.deb" [1]
+2021-08-09 02:55:59 URL:https://deb.debian.org/debian/pool/main/u/util-linux/libuuid1_2.25.2-6_amd64.deb [64662/64662] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libuuid1_2.25.2-6_amd64.deb" [1]
+2021-08-09 02:56:00 URL:https://deb.debian.org/debian/pool/main/u/util-linux/mount_2.25.2-6_amd64.deb [168480/168480] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/mount_2.25.2-6_amd64.deb" [1]
+2021-08-09 02:56:00 URL:https://deb.debian.org/debian/pool/main/u/util-linux/util-linux_2.25.2-6_amd64.deb [844818/844818] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/util-linux_2.25.2-6_amd64.deb" [1]
+2021-08-09 02:56:01 URL:https://deb.debian.org/debian/pool/main/x/xz-utils/liblzma5_5.1.1alpha+20120614-2+b3_amd64.deb [193836/193836] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/liblzma5_5.1.1alpha+20120614-2+b3_amd64.deb" [1]
+2021-08-09 02:56:01 URL:https://deb.debian.org/debian/pool/main/z/zlib/zlib1g_1.2.8.dfsg-2+b1_amd64.deb [88842/88842] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/zlib1g_1%3a1.2.8.dfsg-2+b1_amd64.deb" [1]
+'/data0/Linstrap/Source/initrd-test/dev/fd' -> '/proc/self/fd'
+'/data0/Linstrap/Source/initrd-test/dev/stdin' -> '/proc/self/fd/0'
+'/data0/Linstrap/Source/initrd-test/dev/stdout' -> '/proc/self/fd/1'
+'/data0/Linstrap/Source/initrd-test/dev/stderr' -> '/proc/self/fd/2'
+dpkg-deb: error while loading shared libraries: libbz2.so.1.0: cannot open shared object file: No such file or directory
+'/data0/Linstrap/Source/initrd-test/usr/bin/awk' -> 'mawk'
+dpkg: error: parsing file '/var/lib/dpkg/status' near line 2 package 'dpkg':
+ error in 'Version' field string '': version string is empty
+https://deb.debian.org/debian/dists/jessie/InRelease:
+2021-08-09 02:56:34 ERROR 404: Not Found.
+'/data0/Linstrap/Source/initrd-test/dev/fd' -> '/proc/self/fd'
+'/data0/Linstrap/Source/initrd-test/dev/stdin' -> '/proc/self/fd/0'
+'/data0/Linstrap/Source/initrd-test/dev/stdout' -> '/proc/self/fd/1'
+'/data0/Linstrap/Source/initrd-test/dev/stderr' -> '/proc/self/fd/2'
+dpkg-deb: error while loading shared libraries: libbz2.so.1.0: cannot open shared object file: No such file or directory
+'/data0/Linstrap/Source/initrd-test/usr/bin/awk' -> 'mawk'
+dpkg: error: parsing file '/var/lib/dpkg/status' near line 2 package 'dpkg':
+ error in 'Version' field string '': version string is empty
+https://deb.debian.org/debian/dists/jessie/InRelease:
+2021-08-09 02:59:30 ERROR 404: Not Found.
+'/data0/Linstrap/Source/initrd-test/dev/fd' -> '/proc/self/fd'
+'/data0/Linstrap/Source/initrd-test/dev/stdin' -> '/proc/self/fd/0'
+'/data0/Linstrap/Source/initrd-test/dev/stdout' -> '/proc/self/fd/1'
+'/data0/Linstrap/Source/initrd-test/dev/stderr' -> '/proc/self/fd/2'
+'/data0/Linstrap/Source/initrd-test/usr/bin/awk' -> 'mawk'
+dpkg: warning: parsing file '/var/lib/dpkg/status' near line 2 package 'dpkg':
+ error in 'Version' field string 'initrd': version number does not start with digit
+dpkg: warning: parsing file '/var/lib/dpkg/status' near line 5 package 'dpkg':
+ missing description
+dpkg: warning: parsing file '/var/lib/dpkg/status' near line 5 package 'dpkg':
+ missing architecture
+initrd
+dpkg: error processing archive /var/cache/apt/archives/base-passwd_3.5.37_amd64.deb (--install):
+ unable to open directory '/var/lib/dpkg/tmp.ci/': No such file or directory
+Errors were encountered while processing:
+ /var/cache/apt/archives/base-passwd_3.5.37_amd64.deb
+https://deb.debian.org/debian/dists/jessie/InRelease:
+2021-08-09 03:02:25 ERROR 404: Not Found.
+'/data0/Linstrap/Source/initrd-test/dev/fd' -> '/proc/self/fd'
+'/data0/Linstrap/Source/initrd-test/dev/stdin' -> '/proc/self/fd/0'
+'/data0/Linstrap/Source/initrd-test/dev/stdout' -> '/proc/self/fd/1'
+'/data0/Linstrap/Source/initrd-test/dev/stderr' -> '/proc/self/fd/2'
+'/data0/Linstrap/Source/initrd-test/usr/bin/awk' -> 'mawk'
+dpkg: warning: parsing file '/var/lib/dpkg/status' near line 2 package 'dpkg':
+ error in 'Version' field string 'initrd': version number does not start with digit
+dpkg: warning: parsing file '/var/lib/dpkg/status' near line 5 package 'dpkg':
+ missing description
+dpkg: warning: parsing file '/var/lib/dpkg/status' near line 5 package 'dpkg':
+ missing architecture
+initrd
+dpkg: error processing archive /var/cache/apt/archives/base-passwd_3.5.37_amd64.deb (--install):
+ unable to open directory '/var/lib/dpkg/tmp.ci/': No such file or directory
+Errors were encountered while processing:
+ /var/cache/apt/archives/base-passwd_3.5.37_amd64.deb
+https://deb.debian.org/debian/dists/jessie/InRelease:
+2021-08-09 03:03:36 ERROR 404: Not Found.
+2021-08-09 03:03:39 URL:https://deb.debian.org/debian/pool/main/b/busybox/busybox-static_1.22.0-9+deb8u1_amd64.deb [840630/840630] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/busybox-static_1%3a1.22.0-9+deb8u1_amd64.deb" [1]
+'/data0/Linstrap/Source/initrd-test/dev/fd' -> '/proc/self/fd'
+'/data0/Linstrap/Source/initrd-test/dev/stdin' -> '/proc/self/fd/0'
+'/data0/Linstrap/Source/initrd-test/dev/stdout' -> '/proc/self/fd/1'
+'/data0/Linstrap/Source/initrd-test/dev/stderr' -> '/proc/self/fd/2'
+'/data0/Linstrap/Source/initrd-test/usr/bin/awk' -> 'mawk'
+dpkg: warning: parsing file '/var/lib/dpkg/status' near line 2 package 'dpkg':
+ error in 'Version' field string 'initrd': version number does not start with digit
+dpkg: warning: parsing file '/var/lib/dpkg/status' near line 5 package 'dpkg':
+ missing description
+dpkg: warning: parsing file '/var/lib/dpkg/status' near line 5 package 'dpkg':
+ missing architecture
+initrd
+dpkg: error processing archive /var/cache/apt/archives/base-passwd_3.5.37_amd64.deb (--install):
+ unable to open directory '/var/lib/dpkg/tmp.ci/': No such file or directory
+Errors were encountered while processing:
+ /var/cache/apt/archives/base-passwd_3.5.37_amd64.deb
+https://deb.debian.org/debian/dists/jessie/InRelease:
+2021-08-09 03:04:05 ERROR 404: Not Found.
+2021-08-09 03:04:17 URL:https://deb.debian.org/debian/pool/main/a/acl/acl_2.2.52-2_amd64.deb [58388/58388] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/acl_2.2.52-2_amd64.deb" [1]
+2021-08-09 03:04:18 URL:https://deb.debian.org/debian/pool/main/a/adduser/adduser_3.113+nmu3_all.deb [263714/263714] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/adduser_3.113+nmu3_all.deb" [1]
+2021-08-09 03:04:18 URL:https://deb.debian.org/debian/pool/main/a/apt/libapt-pkg4.12_1.0.9.8.4_amd64.deb [792372/792372] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libapt-pkg4.12_1.0.9.8.4_amd64.deb" [1]
+2021-08-09 03:04:19 URL:https://deb.debian.org/debian/pool/main/a/audit/libaudit-common_2.4-1_all.deb [13502/13502] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libaudit-common_1%3a2.4-1_all.deb" [1]
+2021-08-09 03:04:19 URL:https://deb.debian.org/debian/pool/main/a/audit/libaudit1_2.4-1+b1_amd64.deb [44668/44668] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libaudit1_1%3a2.4-1+b1_amd64.deb" [1]
+2021-08-09 03:04:20 URL:https://deb.debian.org/debian/pool/main/b/bzip2/libbz2-1.0_1.0.6-7+b3_amd64.deb [43472/43472] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libbz2-1.0_1.0.6-7+b3_amd64.deb" [1]
+2021-08-09 03:04:20 URL:https://deb.debian.org/debian/pool/main/c/cdebconf/libdebconfclient0_0.192_amd64.deb [46242/46242] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libdebconfclient0_0.192_amd64.deb" [1]
+2021-08-09 03:04:20 URL:https://deb.debian.org/debian/pool/main/c/cryptsetup/libcryptsetup4_1.6.6-5_amd64.deb [103204/103204] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libcryptsetup4_2%3a1.6.6-5_amd64.deb" [1]
+2021-08-09 03:04:21 URL:https://deb.debian.org/debian/pool/main/c/curl/libcurl3-gnutls_7.38.0-4+deb8u11_amd64.deb [252764/252764] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libcurl3-gnutls_7.38.0-4+deb8u11_amd64.deb" [1]
+2021-08-09 03:04:21 URL:https://deb.debian.org/debian/pool/main/c/cyrus-sasl2/libsasl2-2_2.1.26.dfsg1-13+deb8u1_amd64.deb [104548/104548] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libsasl2-2_2.1.26.dfsg1-13+deb8u1_amd64.deb" [1]
+2021-08-09 03:04:22 URL:https://deb.debian.org/debian/pool/main/c/cyrus-sasl2/libsasl2-modules-db_2.1.26.dfsg1-13+deb8u1_amd64.deb [67134/67134] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libsasl2-modules-db_2.1.26.dfsg1-13+deb8u1_amd64.deb" [1]
+2021-08-09 03:04:22 URL:https://deb.debian.org/debian/pool/main/d/db5.3/libdb5.3_5.3.28-9+deb8u1_amd64.deb [680278/680278] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libdb5.3_5.3.28-9+deb8u1_amd64.deb" [1]
+2021-08-09 03:04:23 URL:https://deb.debian.org/debian/pool/main/d/debian-archive-keyring/debian-archive-keyring_2017.5~deb8u1_all.deb [56652/56652] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/debian-archive-keyring_2017.5~deb8u1_all.deb" [1]
+2021-08-09 03:04:23 URL:https://deb.debian.org/debian/pool/main/g/gcc-4.9/libstdc++6_4.9.2-10+deb8u1_amd64.deb [273048/273048] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libstdc++6_4.9.2-10+deb8u1_amd64.deb" [1]
+2021-08-09 03:04:24 URL:https://deb.debian.org/debian/pool/main/g/gmp/libgmp10_6.0.0+dfsg-6_amd64.deb [253270/253270] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libgmp10_2%3a6.0.0+dfsg-6_amd64.deb" [1]
+2021-08-09 03:04:25 URL:https://deb.debian.org/debian/pool/main/g/gnupg/gnupg_1.4.18-7+deb8u5_amd64.deb [1149570/1149570] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/gnupg_1.4.18-7+deb8u5_amd64.deb" [1]
+2021-08-09 03:04:26 URL:https://deb.debian.org/debian/pool/main/g/gnupg/gpgv_1.4.18-7+deb8u5_amd64.deb [208826/208826] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/gpgv_1.4.18-7+deb8u5_amd64.deb" [1]
+2021-08-09 03:04:27 URL:https://deb.debian.org/debian/pool/main/g/gnutls28/libgnutls-deb0-28_3.3.8-6+deb8u7_amd64.deb [696266/696266] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libgnutls-deb0-28_3.3.8-6+deb8u7_amd64.deb" [1]
+2021-08-09 03:04:27 URL:https://deb.debian.org/debian/pool/main/i/insserv/insserv_1.14.0-5_amd64.deb [64774/64774] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/insserv_1.14.0-5_amd64.deb" [1]
+2021-08-09 03:04:28 URL:https://deb.debian.org/debian/pool/main/k/keyutils/libkeyutils1_1.5.9-5+b1_amd64.deb [12010/12010] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libkeyutils1_1.5.9-5+b1_amd64.deb" [1]
+2021-08-09 03:04:28 URL:https://deb.debian.org/debian/pool/main/k/kmod/libkmod2_18-3_amd64.deb [46190/46190] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libkmod2_18-3_amd64.deb" [1]
+2021-08-09 03:04:28 URL:https://deb.debian.org/debian/pool/main/k/krb5/libgssapi-krb5-2_1.12.1+dfsg-19+deb8u4_amd64.deb [152432/152432] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libgssapi-krb5-2_1.12.1+dfsg-19+deb8u4_amd64.deb" [1]
+2021-08-09 03:04:29 URL:https://deb.debian.org/debian/pool/main/k/krb5/libk5crypto3_1.12.1+dfsg-19+deb8u4_amd64.deb [115564/115564] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libk5crypto3_1.12.1+dfsg-19+deb8u4_amd64.deb" [1]
+2021-08-09 03:04:29 URL:https://deb.debian.org/debian/pool/main/k/krb5/libkrb5-3_1.12.1+dfsg-19+deb8u4_amd64.deb [303402/303402] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libkrb5-3_1.12.1+dfsg-19+deb8u4_amd64.deb" [1]
+2021-08-09 03:04:30 URL:https://deb.debian.org/debian/pool/main/k/krb5/libkrb5support0_1.12.1+dfsg-19+deb8u4_amd64.deb [59354/59354] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libkrb5support0_1.12.1+dfsg-19+deb8u4_amd64.deb" [1]
+2021-08-09 03:04:30 URL:https://deb.debian.org/debian/pool/main/libc/libcap2/libcap2_2.24-8_amd64.deb [15320/15320] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libcap2_1%3a2.24-8_amd64.deb" [1]
+2021-08-09 03:04:31 URL:https://deb.debian.org/debian/pool/main/libc/libcap2/libcap2-bin_2.24-8_amd64.deb [25418/25418] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libcap2-bin_1%3a2.24-8_amd64.deb" [1]
+2021-08-09 03:04:31 URL:https://deb.debian.org/debian/pool/main/libf/libffi/libffi6_3.1-2+deb8u1_amd64.deb [20200/20200] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libffi6_3.1-2+deb8u1_amd64.deb" [1]
+2021-08-09 03:04:31 URL:https://deb.debian.org/debian/pool/main/libg/libgcrypt20/libgcrypt20_1.6.3-2+deb8u4_amd64.deb [391502/391502] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libgcrypt20_1.6.3-2+deb8u4_amd64.deb" [1]
+2021-08-09 03:04:32 URL:https://deb.debian.org/debian/pool/main/libg/libgpg-error/libgpg-error0_1.17-3_amd64.deb [94918/94918] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libgpg-error0_1.17-3_amd64.deb" [1]
+2021-08-09 03:04:32 URL:https://deb.debian.org/debian/pool/main/libi/libidn/libidn11_1.29-1+deb8u2_amd64.deb [136208/136208] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libidn11_1.29-1+deb8u2_amd64.deb" [1]
+2021-08-09 03:04:33 URL:https://deb.debian.org/debian/pool/main/libs/libsemanage/libsemanage-common_2.3-1_all.deb [24580/24580] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libsemanage-common_2.3-1_all.deb" [1]
+2021-08-09 03:04:33 URL:https://deb.debian.org/debian/pool/main/libs/libsemanage/libsemanage1_2.3-1+b1_amd64.deb [90172/90172] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libsemanage1_2.3-1+b1_amd64.deb" [1]
+2021-08-09 03:04:33 URL:https://deb.debian.org/debian/pool/main/libs/libssh2/libssh2-1_1.4.3-4.1+deb8u1_amd64.deb [125426/125426] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libssh2-1_1.4.3-4.1+deb8u1_amd64.deb" [1]
+2021-08-09 03:04:34 URL:https://deb.debian.org/debian/pool/main/libt/libtasn1-6/libtasn1-6_4.2-3+deb8u3_amd64.deb [49190/49190] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libtasn1-6_4.2-3+deb8u3_amd64.deb" [1]
+2021-08-09 03:04:34 URL:https://deb.debian.org/debian/pool/main/libu/libusb/libusb-0.1-4_0.1.12-25_amd64.deb [21886/21886] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libusb-0.1-4_2%3a0.1.12-25_amd64.deb" [1]
+2021-08-09 03:04:35 URL:https://deb.debian.org/debian/pool/main/l/lvm2/dmsetup_1.02.90-2.2+deb8u1_amd64.deb [69142/69142] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/dmsetup_2%3a1.02.90-2.2+deb8u1_amd64.deb" [1]
+2021-08-09 03:04:35 URL:https://deb.debian.org/debian/pool/main/l/lvm2/libdevmapper1.02.1_1.02.90-2.2+deb8u1_amd64.deb [145186/145186] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libdevmapper1.02.1_2%3a1.02.90-2.2+deb8u1_amd64.deb" [1]
+2021-08-09 03:04:35 URL:https://deb.debian.org/debian/pool/main/n/ncurses/libncursesw5_5.9+20140913-1+deb8u3_amd64.deb [123312/123312] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libncursesw5_5.9+20140913-1+deb8u3_amd64.deb" [1]
+2021-08-09 03:04:36 URL:https://deb.debian.org/debian/pool/main/n/nettle/libhogweed2_2.7.1-5+deb8u2_amd64.deb [125340/125340] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libhogweed2_2.7.1-5+deb8u2_amd64.deb" [1]
+2021-08-09 03:04:36 URL:https://deb.debian.org/debian/pool/main/n/nettle/libnettle4_2.7.1-5+deb8u2_amd64.deb [176416/176416] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libnettle4_2.7.1-5+deb8u2_amd64.deb" [1]
+2021-08-09 03:04:37 URL:https://deb.debian.org/debian/pool/main/o/openldap/libldap-2.4-2_2.4.40+dfsg-1+deb8u4_amd64.deb [218084/218084] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libldap-2.4-2_2.4.40+dfsg-1+deb8u4_amd64.deb" [1]
+2021-08-09 03:04:38 URL:https://deb.debian.org/debian/pool/main/o/openssl/libssl1.0.0_1.0.1t-1+deb8u8_amd64.deb [1044450/1044450] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libssl1.0.0_1.0.1t-1+deb8u8_amd64.deb" [1]
+2021-08-09 03:04:38 URL:https://deb.debian.org/debian/pool/main/o/openssl/openssl_1.0.1t-1+deb8u8_amd64.deb [663812/663812] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/openssl_1.0.1t-1+deb8u8_amd64.deb" [1]
+2021-08-09 03:04:39 URL:https://deb.debian.org/debian/pool/main/p/p11-kit/libp11-kit0_0.20.7-1_amd64.deb [81228/81228] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libp11-kit0_0.20.7-1_amd64.deb" [1]
+2021-08-09 03:04:39 URL:https://deb.debian.org/debian/pool/main/p/procps/libprocps3_3.3.9-9+deb8u1_amd64.deb [56732/56732] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libprocps3_2%3a3.3.9-9+deb8u1_amd64.deb" [1]
+2021-08-09 03:04:40 URL:https://deb.debian.org/debian/pool/main/p/procps/procps_3.3.9-9+deb8u1_amd64.deb [235644/235644] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/procps_2%3a3.3.9-9+deb8u1_amd64.deb" [1]
+2021-08-09 03:04:40 URL:https://deb.debian.org/debian/pool/main/r/readline6/libreadline6_6.3-8+b3_amd64.deb [142832/142832] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libreadline6_6.3-8+b3_amd64.deb" [1]
+2021-08-09 03:04:40 URL:https://deb.debian.org/debian/pool/main/r/readline6/readline-common_6.3-8_all.deb [57698/57698] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/readline-common_6.3-8_all.deb" [1]
+2021-08-09 03:04:41 URL:https://deb.debian.org/debian/pool/main/r/rtmpdump/librtmp1_2.4+20150115.gita107cef-1+deb8u1_amd64.deb [60020/60020] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/librtmp1_2.4+20150115.gita107cef-1+deb8u1_amd64.deb" [1]
+2021-08-09 03:04:41 URL:https://deb.debian.org/debian/pool/main/s/slang2/libslang2_2.3.0-2_amd64.deb [491250/491250] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libslang2_2.3.0-2_amd64.deb" [1]
+2021-08-09 03:04:42 URL:https://deb.debian.org/debian/pool/main/s/systemd/libsystemd0_215-17+deb8u7_amd64.deb [89408/89408] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libsystemd0_215-17+deb8u7_amd64.deb" [1]
+2021-08-09 03:04:42 URL:https://deb.debian.org/debian/pool/main/s/systemd/libudev1_215-17+deb8u7_amd64.deb [57778/57778] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libudev1_215-17+deb8u7_amd64.deb" [1]
+2021-08-09 03:04:43 URL:https://deb.debian.org/debian/pool/main/s/systemd/systemd_215-17+deb8u7_amd64.deb [2545194/2545194] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/systemd_215-17+deb8u7_amd64.deb" [1]
+2021-08-09 03:04:44 URL:https://deb.debian.org/debian/pool/main/s/systemd/systemd-sysv_215-17+deb8u7_amd64.deb [36670/36670] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/systemd-sysv_215-17+deb8u7_amd64.deb" [1]
+2021-08-09 03:04:44 URL:https://deb.debian.org/debian/pool/main/s/systemd/udev_215-17+deb8u7_amd64.deb [875762/875762] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/udev_215-17+deb8u7_amd64.deb" [1]
+2021-08-09 03:04:45 URL:https://deb.debian.org/debian/pool/main/u/ustr/libustr-1.0-1_1.0.4-3+b2_amd64.deb [79602/79602] -> "/data0/Linstrap/Source/initrd-test//var/cache/apt/archives/partial/libustr-1.0-1_1.0.4-3+b2_amd64.deb" [1]
+'/data0/Linstrap/Source/initrd-test/dev/fd' -> '/proc/self/fd'
+'/data0/Linstrap/Source/initrd-test/dev/stdin' -> '/proc/self/fd/0'
+'/data0/Linstrap/Source/initrd-test/dev/stdout' -> '/proc/self/fd/1'
+'/data0/Linstrap/Source/initrd-test/dev/stderr' -> '/proc/self/fd/2'
+'/data0/Linstrap/Source/initrd-test/usr/bin/awk' -> 'mawk'
+dpkg: warning: parsing file '/var/lib/dpkg/status' near line 2 package 'dpkg':
+ error in 'Version' field string 'initrd': version number does not start with digit
+dpkg: warning: parsing file '/var/lib/dpkg/status' near line 5 package 'dpkg':
+ missing description
+dpkg: warning: parsing file '/var/lib/dpkg/status' near line 5 package 'dpkg':
+ missing architecture
+initrd
+dpkg: error processing archive /var/cache/apt/archives/base-passwd_3.5.37_amd64.deb (--install):
+ unable to open directory '/var/lib/dpkg/tmp.ci/': No such file or directory
+Errors were encountered while processing:
+ /var/cache/apt/archives/base-passwd_3.5.37_amd64.deb

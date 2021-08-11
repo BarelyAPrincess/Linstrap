@@ -1,0 +1,9 @@
+mkdir -pv "${LINSTRAP_SOURCE_INITRD}/etc/apt" 2>/dev/null
+
+case <<EOF > "${LINSTRAP_SOURCE_INITRD}/etc/apt/source.list"
+deb http://archive.ubuntu.com/ubuntu focal main restricted universe multiverse
+deb http://security.ubuntu.com/ubuntu focal-security main restricted universe multiverse
+EOF
+
+echo "APT::Install-Recommends \"false\";" > ${LINSTRAP_SOURCE_INITRD}/etc/apt/apt.conf.d/99-norecommends
+echo "APT::Install-Suggests \"false\";" > ${LINSTRAP_SOURCE_INITRD}/etc/apt/apt.conf.d/99-nosuggests
