@@ -35,155 +35,100 @@ if [ ! -d "${APP_ROOT}" ] || [ ! -d "${APP_SRC}" ]; then
   exit 1
 fi
 
-# shellcheck source=./src/linstrap.functions.sh
-. "${APP_SRC}/linstrap.functions.sh"
+# shellcheck source=./src/impl.pre.sh
+. "${APP_SRC}/impl.pre.sh"
+
+# shellcheck source=./src/impl.fontworks.sh
+. "${APP_SRC}/impl.fontworks.sh"
+
+# shellcheck source=./src/impl.functions.sh
+. "${APP_SRC}/impl.functions.sh"
 
 function cleanup() {
   echo "Finished! Script ran for a total of $(($(date +%s) - $EPOCH_START)) seconds."
 }
 
-trap crash ERR
-trap cleanup EXIT KILL
-trap debug DEBUG RETURN
+trap crash ERR 2>/dev/null
+trap cleanup EXIT KILL STOP 2>/dev/null
+trap debug DEBUG RETURN 2>/dev/null
 
-# shellcheck source=./src/linstrap.fontworks.sh
-. "${APP_SRC}/linstrap.fontworks.sh"
+# shellcheck source=./src/impl.buffer.sh
+. "${APP_SRC}/impl.buffer.sh"
 
-# shellcheck source=./src/linstrap.env.sh
-. "${APP_SRC}/linstrap.env.sh"
+# TODO Create a text based visual interaction alternative
+# shellcheck source=./src/impl.interaction_visual.sh
+. "${APP_SRC}/impl.interaction_visual.sh"
 
-# shellcheck source=./src/linstrap.header.sh
-. "${APP_SRC}/linstrap.header.sh"
+# shellcheck source=./src/impl.env.sh
+. "${APP_SRC}/impl.env.sh"
 
-[ "$(type -t show_header)" == "function" ] && show_header
+# shellcheck source=./src/impl.header.sh
+. "${APP_SRC}/impl.header.sh"
 
-msg "Checking Linstrap Environment..."
+# [[ "$(type show_header)" =~ function ]] && show_header
 
-checkdir SRC MODULES "modules"
+echo "Checking Linstrap Environment..."
 
-msg "  Is host arch X86_64? "
+# TODO Check if root and subdirs are writable
+
+# Should exist as it contains source files for creating projects
+makedir ROOT DATA "Data"
+
+# Might not exist as it contains cache files for apt and others
+makedir ROOT CACHE "Cache"
+
+# Might not exist as it contains the projects
+makedir ROOT PROJECTS "Projects"
+
+echo -n "  Is host arch X86_64? "
 [ "$(uname -m)" == "x86_64" ] || echo "nope! Only X86_64 is supported at this moment."
 echo "yes!"
 
-msg "  Running as root? "
+echo -n "  Running as root? "
 [ "$(whoami)" == "root" ] || echo "nope! This script can only be ran as root at this moment."
 echo "yes!"
 
-
-
-exit 0
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-LINSTRAP_CONFIG_VALUES=$LINSTRAP_BUILD/values.conf
-LINSTRAP_CONFIG_DEFAULTS=$LINSTRAP_BUILD/defaults.conf
-
-if [ ! -f "$LINSTRAP_CONFIG_VALUES" ]; then
-	PROMPT_DEFAULT="n"
-	if ! prompt_yes_no "There is no configuration file, shall we create it?"; then
-		error "Can't continue without the configuration file. Bailing out."
-	fi
-
-	# Empty config file
-	builtin echo "" > $LINSTRAP_CONFIG_VALUES
-
-	run_module entrypoint interviewer
-fi
-
-source "$LINSTRAP_CONFIG_VALUES" || error "Failed to retrive the build configuration files."
-
 echo
 
+runScript "newProjectWizard"
 
-function error() {
-  echo "SEVERE ERROR! $* ${LINSTRAP_ERROR_APPEND}"
-  exit 1
+# XXX Temporary until menu can be made fully functional
+exit 0
+
+menuClear
+
+function newProjectWizard() {
+  runScript "newProjectWizard"
 }
 
-## Locate what directory we must use
-if [ "$LINSTRAP_ROOT" ]; then
-  LINSTRAP_ROOT=$(realpath "$LINSTRAP_ROOT")
-  if [ -d "$LINSTRAP_ROOT" ]; then
-    error "The LINSTRAP_ROOT variable points to an invalid target. Specified directory is \"$LINSTRAP_ROOT\"."
-  fi
-else
-  # Resolve links: $0 may be a link
-  PRG="$0"
-  # Need this for relative symlinks.
-  while [ -h "$PRG" ] ; do
-    ls=$(ls -ld "$PRG")
-    link=$(expr "$ls" : '.*-> \(.*\)$')
-    if expr "$link" : '/.*' > /dev/null; then
-      PRG="$link"
-    else
-      PRG=$(dirname "$PRG")"/$link"
-    fi
-  done
-  SAVED="$(pwd)"
-  cd "$(dirname \""$PRG"\")/" >/dev/null
-  LINSTRAP_ROOT="$(pwd -P)"
-  cd "$SAVED" >/dev/null
-fi
+menuAddOption "New Project Wizard" "newProjectWizard"
 
-# From here forward is the actual script code.
+function openProject() {
+  runScript "openProject"
+}
 
+menuAddOption "Open Project" "openProject"
 
+updateLinstrap() {
+    git -C "${LINSTRAP_ROOT}" pull 2>&1 | dialog --programbox "Update Linstrap" "${DIALOG_HEIGHT}" "${DIALOG_WIDTH}"
+}
 
-declare -lg PROMPT_NEXT=$([ -z "$1" ] && builtin echo -n "m" || builtin echo -n "q")
-declare -lg PROMPT_RESULT=${1:-m}
-PROMPT_RESULT=${PROMPT_RESULT:0:1}
+menuAddOption "Update Linstrap" "updateLinstrap"
+
+function showRainbow() {
+  runScript tasteRainbow
+}
+
+menuAddOption "Taste the Rainbow" "showRainbow"
+
+function showHelp() {
+  runScript showHelp
+}
+
+menuAddOption "Help" "showHelp"
 
 while :; do
-  PROMPT_DEFAULT="q"
-  case "$PROMPT_RESULT" in
-    q)
-      msg "No errors, hooray! Goodbye!"
-      exit 0
-      ;;
-    m)
-      prompt_options_basic "Root menu: What would you like to do?" q Quit c Clean i Initrd k Kernel v Interviewer r "Taste Rainbow" h Help
-      ;;
-    v)
-      run_module entrypoint interviewer
-      PROMPT_RESULT=$PROMPT_NEXT
-      ;;
-    r)
-      run_script rainbow $*
-      PROMPT_RESULT=$PROMPT_NEXT
-      ;;
-    c)
-      run_module entrypoint clean $*
-      PROMPT_RESULT=$PROMPT_NEXT
-      ;;
-    i)
-      run_script initrd $*
-      PROMPT_RESULT=$PROMPT_NEXT
-      ;;
-    k)
-      run_script kernel $*
-      PROMPT_RESULT=$PROMPT_NEXT
-      ;;
-    h)
-      run_script help $*
-      PROMPT_RESULT=$PROMPT_NEXT
-      ;;
-    *)
-      warningbox "That is not a valid option."
-      ;;
-  esac
+  menuShow # || error "Something Went Wrong!" "Quitting"
 done
 
 exit 0

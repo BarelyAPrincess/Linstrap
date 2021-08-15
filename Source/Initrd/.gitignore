@@ -1,0 +1,18 @@
+/debootstrap
+/configure.sh
+/var/lib/apt
+/var/lib/dpkg
+/etc/dpkg
+/etc/apt
+/var/cache/apt
+/proc/**
+/dev/**
+/sys/**
+/tmp/**
+/root/**
+/usr/share/doc/**
+/usr/share/man/**
+/rootfs.cxz
+
+# Ignore insstalled kernel modules, as they are copied here upon initrd pack.
+/lib/modules/**
