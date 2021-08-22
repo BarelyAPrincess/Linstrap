@@ -25,7 +25,12 @@ LINSTRAP_AUTHOR="Created by Amelia S. Greene (BarelyAPrincess)"
 LINSTRAP_VERSION="2021.08-$(git rev-parse --short --verify HEAD 2>/dev/null)"
 LINSTRAP_ERROR_APPEND="\n  Please consider providing feedback and/or contributing to this project at https://github.com/PenoaksDev/Linstrap"
 
-CPU_COUNT=24
+declare -ig CPU_COUNT=0
+for cores in $(cat /proc/cpuinfo | grep "cpu cores" | sed -E "s/^.*([0-9]+.*$)/\1/g"); do
+    CPU_COUNT=$((CPU_COUNT+cores))
+done
+[ "${CPU_COUNT}" -lt "1" ] && CPU_COUNT=4
+echo "Found ${CPU_COUNT} cpu cores."
 
 WIDTH=${WIDTH:-100}
 HEIGHT=${HEIGHT:-$(($WIDTH / 3))}

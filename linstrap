@@ -21,6 +21,7 @@
 
 EPOCH_START="$(date +%s)"
 LC_ALL=${LC_ALL:-en_US.utf-8}
+ENTRYPOINT_DIR="$(pwd)"
 
 if [ "$0" == "*bash" ] || [ "$0" == "*sh" ]; then
   echo "Script must be ran from it's own bash process."
@@ -45,7 +46,8 @@ fi
 . "${APP_SRC}/impl.functions.sh"
 
 function cleanup() {
-  echo "Finished! Script ran for a total of $(($(date +%s) - $EPOCH_START)) seconds."
+  cd "${ENTRYPOINT_DIR}"
+  echo "Finished! Script ran for a total of $(($(date +%s)-EPOCH_START)) seconds."
 }
 
 trap crash ERR 2>/dev/null
@@ -66,6 +68,10 @@ trap debug DEBUG RETURN 2>/dev/null
 . "${APP_SRC}/impl.header.sh"
 
 # [[ "$(type show_header)" =~ function ]] && show_header
+
+#debug "Loading Menu Configuration"
+# shellcheck source=./src/menus.conf.sh
+. "${APP_SRC}/menus.conf.sh"
 
 echo "Checking Linstrap Environment..."
 
@@ -90,7 +96,27 @@ echo "yes!"
 
 echo
 
-runScript "newProjectWizard"
+is_verbose && set -x
+
+### Temporary To Access Functions ###
+LINSTRAP_FUNCTION=${1:-}
+case "${LINSTRAP_FUNCTION,,}" in
+  "project_new")
+    runScript "newProjectWizard"
+    ;;
+  "rescue_create")
+    runScript "createRescueSystem"
+    ;;
+  "menu")
+    runScript "gotoMainMenu" || error "We're sorry but the menu is not available at this moment!"
+    ;;
+  "")
+    error "Please provide a function for Linstrap."
+    ;;
+  *)
+    error "The function provided is invalid. {FUNCTION=\"${LINSTRAP_FUNCTION}\"}"
+    ;;
+esac
 
 # XXX Temporary until menu can be made fully functional
 exit 0

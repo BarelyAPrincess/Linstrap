@@ -70,12 +70,10 @@ is() {
   [ -z "${KEY}" ] && return "${DEF}"
   case "${KEY}" in
     "${_YES}"|"1"|"yes"|"true")
-      yes
-      return $?
+      return 0
       ;;
     "${_NO}"|"0"|"no"|"false" )
-      no
-      return $?
+      return 1
       ;;
     *)
       # Does the key reference a function or builtin?
