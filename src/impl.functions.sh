@@ -160,6 +160,7 @@ function last_arg() {
 }
 
 function crash() {
+  ob_end "CRASH" || true
   # TODO Wait and terminate the ob_start before exiting.
   if [ "$#" == 0 ]; then
     echo "Oops, something went wrong..."

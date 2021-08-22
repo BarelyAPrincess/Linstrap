@@ -58,9 +58,9 @@ EOF
 
 ### Prepare for General Use ###
 
-mkdir -pv "${RESCUE_DIR}/etc/linstrap" 2>/dev/null
-cat <<EOF > "${RESCUE_DIR}/etc/linstrap/linstrap.info"
-# linstrap.info
+mkdir -pv "${RESCUE_DIR}/linstrap" 2>/dev/null
+cat <<EOF > "${RESCUE_DIR}/linstrap/build.info"
+# build.info
 #
 # Linstrap
 #
@@ -72,8 +72,11 @@ cat <<EOF > "${RESCUE_DIR}/etc/linstrap/linstrap.info"
 # the following config variables were set during build:
 EOF
 
+for var in ${!APP_*}; do
+    echo "${var}=${!var}" >> "${RESCUE_DIR}/linstrap/build.info"
+done
 for var in ${!LINSTRAP_*}; do
-    echo "${var}=${!var}" >> "${RESCUE_DIR}/etc/linstrap/linstrap.info"
+    echo "${var}=${!var}" >> "${RESCUE_DIR}/linstrap/build.info"
 done
 
 echo "proc /proc proc defaults 0 0" > "${RESCUE_DIR}/etc/fstab"
@@ -199,6 +202,6 @@ ln -sf /proc/mounts "${RESCUE_DIR}/etc/mtab"
 
 ### Finally, finally package the system ###
 
-find "${RESCUE_DIR}" | sed -E "s#${RESCUE_DIR}/{0,1}##g" | grep -Ev "^(proc|dev|sys)/" | tee -a "${OB_PIPE}" | eval "cd \"${RESCUE_DIR}\" && cpio --create -H \"newc\" | gzip -9 >\"${LINSTRAP_DATA}/rootfs.img-rescue${LINSTRAP_VERSION}\""
+find "${RESCUE_DIR}" | sed -E "s#${RESCUE_DIR}/{0,1}##g" | grep -Ev "^(tmp|proc|dev|sys)/" | tee -a "${OB_PIPE}" | eval "cd \"${RESCUE_DIR}\" && cpio --create -H \"newc\" | gzip -9 >\"${LINSTRAP_DATA}/rootfs.img-rescue${LINSTRAP_VERSION}\""
 
 ob_end "SUCCESS"

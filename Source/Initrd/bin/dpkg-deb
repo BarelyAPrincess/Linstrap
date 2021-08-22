@@ -1,3 +1,0 @@
-#!/bin/busybox sh
-echo "initrd"
-exit 0

@@ -82,7 +82,7 @@ function ob_end_loop () {
 }
 
 function ob_end () {
-    [ ${OB_STATE} != 1 ] && echo "ERROR: 'ob_start' function was never called!" && exit 1
+    [ ${OB_STATE} != 1 ] && echo "ERROR: 'ob_start' function was never called!" >&2 && exit 1
 
     exec 1>&0
     exec 2>&0

@@ -23,7 +23,6 @@ LINSTRAP_NAME="linstrap"
 LINSTRAP_TITLE="Welcome to the Linux OS Bootstraping and Launcher Utility"
 LINSTRAP_AUTHOR="Created by Amelia S. Greene (BarelyAPrincess)"
 LINSTRAP_VERSION="2021.08-$(git rev-parse --short --verify HEAD 2>/dev/null)"
-LINSTRAP_ERROR_APPEND="\n  Please consider providing feedback and/or contributing to this project at https://github.com/PenoaksDev/Linstrap"
 
 declare -ig CPU_COUNT=0
 for cores in $(cat /proc/cpuinfo | grep "cpu cores" | sed -E "s/^.*([0-9]+.*$)/\1/g"); do

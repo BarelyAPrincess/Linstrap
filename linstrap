@@ -21,7 +21,7 @@
 
 EPOCH_START="$(date +%s)"
 LC_ALL=${LC_ALL:-en_US.utf-8}
-ENTRYPOINT_DIR="$(pwd)"
+APP_ENTRYDIR="$(pwd)"
 
 if [ "$0" == "*bash" ] || [ "$0" == "*sh" ]; then
   echo "Script must be ran from it's own bash process."
@@ -46,13 +46,13 @@ fi
 . "${APP_SRC}/impl.functions.sh"
 
 function cleanup() {
-  cd "${ENTRYPOINT_DIR}"
+  cd "${APP_ENTRYDIR}"
   echo "Finished! Script ran for a total of $(($(date +%s)-EPOCH_START)) seconds."
 }
 
-trap crash ERR 2>/dev/null
-trap cleanup EXIT KILL STOP 2>/dev/null
-trap debug DEBUG RETURN 2>/dev/null
+trap crash ERR 2>/dev/null || true
+trap cleanup EXIT KILL STOP 2>/dev/null || true
+trap debug DEBUG RETURN 2>/dev/null || true
 
 # shellcheck source=./src/impl.buffer.sh
 . "${APP_SRC}/impl.buffer.sh"
