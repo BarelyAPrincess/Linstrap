@@ -25,7 +25,7 @@
 # TODO Implement an error trap
 # Create a temporary pipe file
 declare -g OB_PIPE
-OB_PIPE="pipe" # $(mktemp -u -t pipe.XXXXXX)"
+OB_PIPE="/tmp/pipebuf" # $(mktemp -u -t pipe.XXXXXX)"
 declare -g OB_STATE=0 # Tracks state of output buffer. 0=not started, 1=started
 declare -g OB_LENGTH=0
 declare -g OB_START_TEXT

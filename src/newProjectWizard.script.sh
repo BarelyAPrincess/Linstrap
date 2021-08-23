@@ -28,7 +28,7 @@
     # TODO Put project prompt
     PROJECT_NAME="HoneyPotLinux"
 
-    PROJECT_DIR="${APP_PROJECTS}/${PROJECT_NAME}"
+    PROJECT_DIR="${APP_PROJECTS:?}/${PROJECT_NAME}"
 
     # TODO Check project directory and determine the status of the project; prompt to override and etc.
 
@@ -179,13 +179,17 @@
                     PROJECT_LIB="${PROJECT_LINSTRAP}/xLibraries"
                     PROJECT_BIN="${PROJECT_LINSTRAP}/xBinaries"
 
-                    mkdir -pv "${INITRD_DIR}/bin" "${INITRD_DIR}/usr" "${INITRD_DIR}/lib" "${INITRD_DIR}${PROJECT_ETC}" "${INITRD_DIR}${PROJECT_LIB}" "${INITRD_DIR}${PROJECT_BIN}" 2>/dev/null
-                    ln -sf "${PROJECT_ETC}" "${INITRD_DIR}/etc"
-                    ln -sf "${PROJECT_LIB}" "${INITRD_DIR}/lib"
-                    ln -sf "${PROJECT_BIN}" "${INITRD_DIR}/usr/sbin"
-                    ln -sf "${PROJECT_BIN}" "${INITRD_DIR}/usr/bin"
-                    ln -sf "${PROJECT_BIN}" "${INITRD_DIR}/sbin"
-                    ln -sf "${PROJECT_BIN}" "${INITRD_DIR}/bin"
+                    mkdir -pv "${INITRD_DIR}/usr" "${INITRD_DIR}${PROJECT_ETC}" "${INITRD_DIR}${PROJECT_LIB}" "${INITRD_DIR}${PROJECT_BIN}" 2>/dev/null
+                    
+                    rm -rv "${INITRD_DIR:?}/etc" "${INITRD_DIR:?}/usr/lib" "${INITRD_DIR:?}/lib" "${INITRD_DIR:?}/usr/sbin" "${INITRD_DIR}/usr/bin:?" "${INITRD_DIR:?}/sbin" "${INITRD_DIR:?}/bin" 2>/dev/null || true
+
+                    ln -sTf "${PROJECT_ETC:1}" "${INITRD_DIR}/etc"
+                    ln -sTf "../${PROJECT_LIB:1}" "${INITRD_DIR}/usr/lib"
+                    ln -sTf "${PROJECT_LIB:1}" "${INITRD_DIR}/lib"
+                    ln -sTf "../${PROJECT_BIN:1}" "${INITRD_DIR}/usr/sbin"
+                    ln -sTf "../${PROJECT_BIN:1}" "${INITRD_DIR}/usr/bin"
+                    ln -sTf "${PROJECT_BIN:1}" "${INITRD_DIR}/sbin"
+                    ln -sTf "${PROJECT_BIN:1}" "${INITRD_DIR}/bin"
 
                     echo "Built with Linstrap v${INITRD_BUILT_WITH}" > "${INITRD_DIR}${PROJECT_LINSTRAP}/.version"
                     echo "Created at $(date "${INITRD_CUSTOM_VERSION_STRING}")" >> "${INITRD_DIR}${PROJECT_LINSTRAP}/.version"
@@ -380,7 +384,7 @@ EOF
         if is "${BUILD_INITRD}" yes; then
             ob_start "Packing Initrd"
 
-            mute rm -r "${INITRD_DIR}/tmp/*" 2>/dev/null
+            rm -rv "${INITRD_DIR}/tmp/*" 2>/dev/null || true
 
             find "${INITRD_DIR}" | sed -E "s#${INITRD_DIR}/{0,1}##g" | grep -Ev "^(tmp|proc|dev|sys)/" | tee -a "${OB_PIPE}" | eval "cd \"${INITRD_DIR}\" && cpio --create -H \"newc\" | gzip -9 >\"${PROJECT_OUTPUT_DIR}/initrd.img-linstrap${LINSTRAP_VERSION}\""
 
@@ -411,6 +415,9 @@ rm /tmp/linstrap.pipe
 EOF
         
         chmod a+x "${PROJECT_OUTPUT_DIR}/qemu-start.sh"
+
+        ## Temp for amelia's PC
+        [ -d "/tftpboot/linstrap/" ] && cp -v "${PROJECT_OUTPUT_DIR}"/* "/tftpboot/linstrap/"
     else
         echo "For one or more reasons the project is not in a ready state to be built. Check the previous logs for more information."
     fi
